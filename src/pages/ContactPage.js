@@ -19,12 +19,12 @@ export class ContactPage {
         const mainContent = document.getElementById('main-content');
         if (mainContent && this.teamData) {
             mainContent.innerHTML = this.render();
-            // Initialize radar charts after DOM is ready
-            setTimeout(() => {
+            // Use requestAnimationFrame for better timing
+            requestAnimationFrame(() => {
                 this.teamData.crew.forEach((member, index) => {
                     this.drawRadarChart(`radar-${index}`, member.radarData);
                 });
-            }, 100);
+            });
         }
     }
 
@@ -143,7 +143,7 @@ export class ContactPage {
                 <div class="card-corner br"></div>
                 
                 <div class="crew-photo-container">
-                    <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
+                    <img src="./src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
                     <div class="photo-glow"></div>
                     <div class="radar-section">
                         <canvas id="radar-${index}" width="100" height="100"></canvas>
