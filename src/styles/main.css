@@ -57,3 +57,4 @@ ul {
 
 /* Import Component Styles */
 @import "./components.css";
+@import "./contact.css";
