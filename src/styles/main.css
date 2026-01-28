@@ -1,0 +1,59 @@
+/* Main Stylesheet 
+   Imports common components and defines global resets/variables 
+*/
+
+/* 1. Global Variables from prompt.md */
+:root {
+    /* Colors */
+    --color-primary: hsl(210, 100%, 50%);
+    /* Electric Blue */
+    --color-secondary: hsl(25, 100%, 50%);
+    /* Ignition Orange */
+    --color-bg-dark: hsl(220, 20%, 8%);
+    /* Deep Void */
+    --color-bg-surface: hsl(220, 15%, 14%);
+    /* Engine Metal */
+
+    --color-text-primary: hsl(0, 0%, 96%);
+    /* Titanium White */
+    --color-text-secondary: hsl(210, 10%, 60%);
+    /* Oxidized Metal */
+
+    --color-success: hsl(140, 80%, 45%);
+    --color-danger: hsl(0, 80%, 55%);
+
+    /* Fonts */
+    --font-display: "Rajdhani", "Orbitron", sans-serif;
+    --font-body: "Inter", "Roboto Mono", monospace;
+
+    /* Spacing & Layout */
+    --container-width: 1200px;
+    --header-height: 80px;
+}
+
+/* 2. Reset & Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Import Component Styles */
+@import "./components.css";
