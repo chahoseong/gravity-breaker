@@ -1,13 +1,15 @@
 /* Team Page Specific Styles - Vision & Values */
 
 /* Team Page Variables */
-.team-page {
+.team-page,
+.about-page {
     --glass-bg: rgba(30, 35, 45, 0.7);
     --glass-border: 1px solid hsla(0, 0%, 100%, 0.1);
     --card-hover-glow: 0 0 15px var(--color-primary);
 }
 
-.team-page {
+.team-page,
+.about-page {
     padding-top: var(--header-height);
     min-height: 100vh;
     background-image:
@@ -69,7 +71,8 @@
 }
 
 
-.team-page h1 {
+.team-page h1,
+.about-page h1 {
     font-family: var(--font-display);
     font-size: 3.5rem;
     text-transform: uppercase;
@@ -78,7 +81,8 @@
     text-shadow: 0 0 20px rgba(0, 50, 255, 0.3);
 }
 
-.team-page p.subtitle {
+.team-page p.subtitle,
+.about-page p.subtitle {
     font-family: var(--font-body);
     font-size: 1.2rem;
     color: var(--color-text-secondary);
