@@ -33,6 +33,19 @@
     animation: fadeInUp 1s ease-out;
 }
 
+.hero-logo {
+    width: 600px;
+    height: auto;
+    margin-top: 16rem;
+    /* Move logo down */
+    margin-bottom: 2.5rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 149, 255, 0.5));
+    mix-blend-mode: screen;
+    /* Blends black background if present */
+    animation: fadeInUp 1s ease-out;
+}
+
 .hero-title {
     margin-bottom: 1.5rem;
     color: var(--color-text-primary);
