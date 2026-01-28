@@ -5,8 +5,14 @@ export class ContactPage {
 
     async loadData() {
         try {
-            const response = await fetch('./src/data/team-data.json');
+            // Use absolute path from root + cache busting
+            const timestamp = new Date().getTime();
+            const response = await fetch(`/src/data/team-data.json?v=${timestamp}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             this.teamData = await response.json();
+            console.log('Team data loaded successfully:', this.teamData);
         } catch (error) {
             console.error('Failed to load team data:', error);
             this.teamData = { mission: {}, crew: [] };
