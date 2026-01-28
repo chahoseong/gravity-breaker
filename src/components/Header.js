@@ -3,7 +3,10 @@ export class Header {
         return `
             <header>
                 <nav class="container">
-                    <a href="/" data-link>Gravity Breaker</a>
+                    <a href="/" data-link class="logo-link">
+                        <img src="assets/img/logo.png" alt="Gravity Breaker Logo" class="nav-logo">
+                        <span>Gravity Breaker</span>
+                    </a>
                     <ul>
                         <li><a href="/" data-link>Home</a></li>
                         <li><a href="/about" data-link>About</a></li>
