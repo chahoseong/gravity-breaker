@@ -1,6 +1,8 @@
 /* Main Stylesheet 
    Imports common components and defines global resets/variables 
 */
+@import "./components.css";
+@import "./team.css";
 
 /* 1. Global Variables from prompt.md */
 :root {
@@ -54,6 +56,3 @@ a {
 ul {
     list-style: none;
 }
-
-/* Import Component Styles */
-@import "./components.css";
