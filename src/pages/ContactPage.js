@@ -143,7 +143,7 @@ export class ContactPage {
                 <div class="card-corner br"></div>
                 
                 <div class="crew-photo-container">
-                    <img src="./src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
+                    <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
                     <div class="photo-glow"></div>
                     <div class="radar-section">
                         <canvas id="radar-${index}" width="100" height="100"></canvas>
