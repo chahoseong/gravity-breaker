@@ -35,7 +35,7 @@ export class ContactPage {
         const ctx = canvas.getContext('2d');
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius = 35;
+        const radius = 50;
         const labels = ['집중', '항법', '공학', '통신', '생존'];
         const values = [data.focus, data.navigation, data.engineering, data.communication, data.survival];
         const numPoints = 5;
@@ -142,37 +142,68 @@ export class ContactPage {
                 <div class="card-corner bl"></div>
                 <div class="card-corner br"></div>
                 
-                <div class="crew-photo-container">
-                    <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
-                    <div class="photo-glow"></div>
-                    <div class="radar-section">
-                        <canvas id="radar-${index}" width="100" height="100"></canvas>
+                <div class="crew-header-section">
+                    <div class="crew-photo-container">
+                        <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
+                        <div class="photo-glow"></div>
+                    </div>
+                    
+                    <div class="crew-identity">
+                        <div class="callsign-section">
+                            <div class="callsign-label">CALLSIGN:</div>
+                            <div class="callsign">${member.callsign}</div>
+                        </div>
+                        <div class="role-section">
+                            <div class="role-label">ROLE:</div>
+                            <div class="role">${member.role}</div>
+                        </div>
+                        <div class="tech-stack">
+                            ${member.techStack.map(tech => `
+                                <div class="tech-badge" title="${tech.name}">
+                                    <span class="tech-icon-small">${tech.icon}</span>
+                                    <span class="tech-name-small">${tech.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
                 
-                <div class="crew-header">
-                    <div class="callsign-label">호출 부호:</div>
-                    <div class="callsign">${member.callsign}</div>
-                </div>
-                
-                <div class="crew-info">
-                    <div class="role-label">역할:</div>
-                    <div class="role">${member.role}</div>
-                </div>
-                
-                <div class="tech-stack">
-                    ${member.techStack.map(tech => `
-                        <div class="tech-icon" title="${tech.name}">
-                            <span class="icon">${tech.icon}</span>
-                            <span class="tech-name">${tech.name}</span>
+                <div class="crew-stats-section">
+                    <div class="stats-label">Stats</div>
+                    <div class="radar-container">
+                        <canvas id="radar-${index}" width="140" height="140"></canvas>
+                    </div>
+                    <div class="stats-values">
+                        <div class="stat-item">
+                            <span class="stat-label">Focus</span>
+                            <span class="stat-value">${member.radarData.focus}</span>
                         </div>
-                    `).join('')}
+                        <div class="stat-item">
+                            <span class="stat-label">Nav</span>
+                            <span class="stat-value">${member.radarData.navigation}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Eng</span>
+                            <span class="stat-value">${member.radarData.engineering}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Comm</span>
+                            <span class="stat-value">${member.radarData.communication}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Surv</span>
+                            <span class="stat-value">${member.radarData.survival}</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="crew-status">
-                    <span class="status-label">상태:</span>
-                    <span class="status-value ${member.status.availability.toLowerCase().replace(' ', '-')}">${member.status.availability}</span>
-                    <span class="status-location">(${member.status.location})</span>
+                <div class="crew-status-section">
+                    <div class="status-header">STATUS:</div>
+                    <div class="status-content">
+                        <span class="status-indicator ${member.status.availability.toLowerCase().replace(' ', '-')}"></span>
+                        <span class="status-text">${member.status.availability}</span>
+                    </div>
+                    <div class="status-location">(${member.status.location})</div>
                 </div>
             </div>
         `;
