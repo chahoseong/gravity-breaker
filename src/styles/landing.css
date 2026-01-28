@@ -1,0 +1,149 @@
+/* Landing Page Specific Styles */
+
+/* 1. Hero Section */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(16, 21, 30, 0.8) 0%, var(--color-bg-dark) 100%),
+        url('../../assets/hero-bg.jpg') no-repeat center center/cover;
+}
+
+/* Fallback/Overlay for Hero */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 1rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-title {
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+/* 2. Tech Specs Section */
+.tech-specs-section {
+    padding: 6rem 0;
+    background-color: var(--color-bg-surface);
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.engine-card {
+    /* Extending common card styles */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.engine-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #000;
+    /* Placeholder */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.engine-details {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.spec-label {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+}
+
+.spec-value {
+    font-family: var(--font-body);
+    /* Monospace */
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* 3. News Section */
+.news-section {
+    padding: 6rem 0;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.news-card {
+    cursor: pointer;
+}
+
+.news-date {
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.news-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+/* 4. CTA Section */
+.cta-section {
+    padding: 8rem 0;
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-bg-dark) 0%, rgba(0, 149, 255, 0.1) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,22 +1,20 @@
-# Common Components Implementation Guide
-
-This document provides the HTML structure and CSS implementation for the website's common components, strictly adhering to the "Rocket Engine Startup" design system defined in `prompt.md`.
-
-## 1. Global CSS Variables (`:root`)
-
-Include these variables in your main stylesheet to establish the theme.
-
-```css
+/* Global CSS Variables */
 :root {
   /* Colors */
-  --color-primary: hsl(210, 100%, 50%);    /* Electric Blue */
-  --color-secondary: hsl(25, 100%, 50%);   /* Ignition Orange */
-  --color-bg-dark: hsl(220, 20%, 8%);      /* Deep Void */
-  --color-bg-surface: hsl(220, 15%, 14%);  /* Engine Metal */
-  
-  --color-text-primary: hsl(0, 0%, 96%);   /* Titanium White */
-  --color-text-secondary: hsl(210, 10%, 60%); /* Oxidized Metal */
-  
+  --color-primary: hsl(210, 100%, 50%);
+  /* Electric Blue */
+  --color-secondary: hsl(25, 100%, 50%);
+  /* Ignition Orange */
+  --color-bg-dark: hsl(220, 20%, 8%);
+  /* Deep Void */
+  --color-bg-surface: hsl(220, 15%, 14%);
+  /* Engine Metal */
+
+  --color-text-primary: hsl(0, 0%, 96%);
+  /* Titanium White */
+  --color-text-secondary: hsl(210, 10%, 60%);
+  /* Oxidized Metal */
+
   --color-success: hsl(140, 80%, 45%);
   --color-danger: hsl(0, 80%, 55%);
 
@@ -35,14 +33,11 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
 }
-```
 
-## 2. Typography
-
-High-tech, legible, and precise.
-
-```css
-h1, h2, h3 {
+/* Typography */
+h1,
+h2,
+h3 {
   font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -69,21 +64,8 @@ h1, h2, h3 {
   color: var(--color-text-secondary);
   letter-spacing: 1px;
 }
-```
 
-## 3. Buttons (The "Ignition" Switch)
-
-Buttons should feel tactile and energetic.
-
-### Primary Button
-```html
-<button class="btn btn-primary">
-  <span class="btn-text">Review Systems</span>
-  <span class="btn-decorator">>></span>
-</button>
-```
-
-```css
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -111,14 +93,7 @@ Buttons should feel tactile and energetic.
   box-shadow: 0 0 20px var(--color-primary);
   text-shadow: 0 0 8px white;
 }
-```
 
-### Secondary Button (Ghost)
-```html
-<button class="btn btn-secondary">Learn More</button>
-```
-
-```css
 .btn-secondary {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -131,27 +106,8 @@ Buttons should feel tactile and energetic.
   background: rgba(0, 149, 255, 0.1);
   box-shadow: 0 0 10px rgba(0, 149, 255, 0.2);
 }
-```
 
-## 4. Cards & Panels (HUD Style)
-
-Glassmorphism with technical markings.
-
-```html
-<div class="card">
-  <div class="card-header">
-    <span class="card-label">SYS-01</span>
-  </div>
-  <div class="card-content">
-    <h3>Propulsion</h3>
-    <p>High-efficiency vacuum engines.</p>
-  </div>
-  <div class="card-decor-bl"></div>
-  <div class="card-decor-tr"></div>
-</div>
-```
-
-```css
+/* Cards & Panels */
 .card {
   position: relative;
   background: rgba(30, 35, 45, 0.6);
@@ -169,7 +125,8 @@ Glassmorphism with technical markings.
 }
 
 /* Technical Corner Decors */
-.card-decor-bl, .card-decor-tr {
+.card-decor-bl,
+.card-decor-tr {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -178,29 +135,28 @@ Glassmorphism with technical markings.
   transition: all 0.3s ease;
 }
 
-.card-decor-bl { bottom: 0; left: 0; border-top: none; border-right: none; }
-.card-decor-tr { top: 0; right: 0; border-bottom: none; border-left: none; }
+.card-decor-bl {
+  bottom: 0;
+  left: 0;
+  border-top: none;
+  border-right: none;
+}
 
-.card:hover .card-decor-bl, 
+.card-decor-tr {
+  top: 0;
+  right: 0;
+  border-bottom: none;
+  border-left: none;
+}
+
+.card:hover .card-decor-bl,
 .card:hover .card-decor-tr {
   border-color: var(--color-secondary);
   width: 30px;
   height: 30px;
 }
-```
 
-## 5. Forms & Inputs
-
-Minimalist, data-entry style.
-
-```html
-<div class="input-group">
-  <label for="email">Mission Log</label>
-  <input type="email" id="email" placeholder="Enter command..." />
-</div>
-```
-
-```css
+/* Forms & Inputs */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -215,7 +171,7 @@ Minimalist, data-entry style.
   color: var(--color-primary);
 }
 
-.input-group input, 
+.input-group input,
 .input-group textarea {
   background: rgba(0, 0, 0, 0.3);
   border: none;
@@ -233,11 +189,9 @@ Minimalist, data-entry style.
   border-bottom-color: var(--color-secondary);
   background: rgba(255, 255, 255, 0.05);
 }
-```
 
-## 6. Layout Helpers
 
-```css
+/* Layout Helpers */
 .container {
   width: 100%;
   max-width: var(--container-width);
@@ -250,4 +204,61 @@ Minimalist, data-entry style.
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
-```
+
+/* 7. Header & Navigation */
+header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 21, 30, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+header nav {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav>a {
+  /* Logo */
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-text-primary);
+}
+
+header ul {
+  display: flex;
+  gap: 2rem;
+}
+
+header ul a {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
+}
+
+header ul a:hover {
+  color: var(--color-primary);
+}
+
+/* 8. Footer */
+footer {
+  padding: 2rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
