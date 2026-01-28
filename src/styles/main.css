@@ -1,6 +1,8 @@
 /* Main Stylesheet 
    Imports common components and defines global resets/variables 
 */
+@import "./components.css";
+@import "./team.css";
 
 /* Import Component Styles - MUST BE FIRST */
 @import "./components.css";

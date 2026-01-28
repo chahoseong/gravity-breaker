@@ -1,0 +1,214 @@
+/* Team Page Specific Styles - Vision & Values */
+
+/* Team Page Variables */
+.team-page {
+    --glass-bg: rgba(30, 35, 45, 0.7);
+    --glass-border: 1px solid hsla(0, 0%, 100%, 0.1);
+    --card-hover-glow: 0 0 15px var(--color-primary);
+}
+
+.team-page {
+    padding-top: var(--header-height);
+    min-height: 100vh;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('/src/assets/team-bg.jpg');
+    /* Placeholder */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--color-text-primary);
+}
+
+.team-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    padding-top: 3rem;
+}
+
+.hud-label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+/* Language Switch */
+.lang-switch-container {
+    position: absolute;
+    top: calc(var(--header-height) + 1rem);
+    /* Just below header */
+    right: 2rem;
+    z-index: 10;
+}
+
+.btn-tech-sm {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-primary);
+    color: var(--color-text-secondary);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-tech-sm:hover {
+    background: rgba(33, 150, 243, 0.2);
+    box-shadow: 0 0 10px var(--color-primary);
+    color: white;
+}
+
+.accent-text {
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+
+.team-page h1 {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 50, 255, 0.3);
+}
+
+.team-page p.subtitle {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Sections Common */
+.section-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--color-primary);
+    padding-left: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Vision Section */
+.vision-section {
+    margin-bottom: 6rem;
+    background: linear-gradient(90deg, rgba(30, 35, 45, 0.5), transparent);
+    padding: 3rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.big-statement {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 1.5rem;
+    background: -webkit-linear-gradient(top, #fff, #888);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.vision-detail {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+}
+
+/* Mission Grid */
+.mission-section {
+    margin-bottom: 6rem;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+}
+
+.mission-item {
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.mission-item:hover {
+    border-color: var(--color-primary);
+    background: rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+}
+
+.mission-number {
+    position: absolute;
+    top: -1.5rem;
+    left: 1rem;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.05);
+    font-weight: bold;
+}
+
+.mission-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.mission-item p {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+/* Values Grid */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.value-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border: var(--glass-border);
+    border-radius: 4px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.value-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(0, 100, 255, 0.1);
+}
+
+.icon-container {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.value-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.value-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
