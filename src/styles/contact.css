@@ -227,11 +227,11 @@
     border-bottom: 1px solid hsla(180, 100%, 50%, 0.2);
 }
 
-/* Crew Photo - Compact size */
+/* Crew Photo - Compact size (40px) */
 .crew-photo-container {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
 }
 
@@ -239,19 +239,21 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
-    border: 2px solid hsl(180, 100%, 50%);
+    border-radius: 4px;
+    border: 1px solid hsl(180, 100%, 50%);
     box-shadow:
-        0 0 15px hsla(180, 100%, 50%, 0.5),
-        inset 0 0 10px rgba(0, 255, 255, 0.1);
+        0 0 10px hsla(180, 100%, 50%, 0.5),
+        inset 0 0 8px rgba(0, 255, 255, 0.1);
     transition: all 0.3s ease;
+    filter: brightness(1.1) contrast(1.05);
 }
 
 .crew-card:hover .crew-photo {
     border-color: hsl(180, 100%, 60%);
     box-shadow:
-        0 0 20px hsla(180, 100%, 50%, 0.8),
-        inset 0 0 15px rgba(0, 255, 255, 0.2);
+        0 0 15px hsla(180, 100%, 50%, 0.8),
+        inset 0 0 12px rgba(0, 255, 255, 0.2);
+    filter: brightness(1.2) contrast(1.1);
 }
 
 .photo-glow {
@@ -260,7 +262,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 8px;
+    border-radius: 4px;
     background: radial-gradient(circle,
             hsla(180, 100%, 50%, 0.2) 0%,
             transparent 70%);
@@ -280,12 +282,40 @@
     }
 }
 
-/* Crew Identity - Right side of photo */
+/* Crew Identity - Hologram text effects */
 .crew-identity {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    position: relative;
+}
+
+/* Scan line overlay on text */
+.crew-identity::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.03) 2px,
+            rgba(0, 255, 255, 0.03) 4px);
+    pointer-events: none;
+    animation: scanMove 8s linear infinite;
+}
+
+@keyframes scanMove {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(4px);
+    }
 }
 
 .callsign-section,
@@ -298,24 +328,89 @@
 .callsign-label,
 .role-label {
     font-family: var(--font-display);
-    font-size: 0.625rem;
-    letter-spacing: 1px;
-    color: hsl(180, 100%, 60%);
+    font-size: 0.5rem;
+    letter-spacing: 2px;
+    color: hsl(180, 100%, 50%);
     text-transform: uppercase;
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.8),
+        0 0 10px hsla(180, 100%, 50%, 0.4);
+    opacity: 0.9;
 }
 
 .callsign {
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     color: hsl(180, 100%, 80%);
-    text-shadow: 0 0 8px hsla(180, 100%, 50%, 0.4);
+    text-shadow:
+        0 0 10px hsla(180, 100%, 50%, 0.6),
+        0 0 20px hsla(180, 100%, 50%, 0.3),
+        0 0 30px hsla(180, 100%, 50%, 0.2);
+    position: relative;
+    animation: textFlicker 3s ease-in-out infinite;
+}
+
+@keyframes textFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.95;
+    }
+
+    51% {
+        opacity: 1;
+    }
+
+    52% {
+        opacity: 0.98;
+    }
+
+    53% {
+        opacity: 1;
+    }
+}
+
+.crew-card:hover .callsign {
+    animation: textGlitch 0.3s ease;
+}
+
+@keyframes textGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        text-shadow:
+            0 0 10px hsla(180, 100%, 50%, 0.6),
+            0 0 20px hsla(180, 100%, 50%, 0.3);
+    }
+
+    25% {
+        transform: translateX(-2px);
+        text-shadow:
+            -2px 0 hsla(0, 100%, 50%, 0.5),
+            2px 0 hsla(180, 100%, 50%, 0.5);
+    }
+
+    75% {
+        transform: translateX(2px);
+        text-shadow:
+            2px 0 hsla(0, 100%, 50%, 0.5),
+            -2px 0 hsla(180, 100%, 50%, 0.5);
+    }
 }
 
 .role {
-    font-size: 0.875rem;
-    color: var(--color-text-primary);
+    font-size: 0.75rem;
+    color: hsl(180, 80%, 70%);
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 5px hsla(180, 100%, 50%, 0.3);
 }
 
 /* Tech Stack - Horizontal badges */
@@ -354,28 +449,50 @@
     font-size: 0.625rem;
 }
 
-/* Stats Section - Radar Chart */
+/* Stats Section - Hologram display */
 .crew-stats-section {
     margin-bottom: 1rem;
     padding: 0.75rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 10, 20, 0.6);
+    border: 1px solid hsla(180, 100%, 50%, 0.3);
     border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.crew-stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 255, 255, 0.02) 1px,
+            rgba(0, 255, 255, 0.02) 2px);
+    pointer-events: none;
 }
 
 .stats-label {
     font-family: var(--font-display);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
+    font-size: 0.625rem;
+    letter-spacing: 3px;
     color: hsl(180, 100%, 60%);
     text-align: center;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
+    text-shadow:
+        0 0 8px hsla(180, 100%, 50%, 0.6),
+        0 0 15px hsla(180, 100%, 50%, 0.3);
 }
 
 .radar-container {
     display: flex;
     justify-content: center;
     margin-bottom: 0.75rem;
+    filter: drop-shadow(0 0 10px hsla(180, 100%, 50%, 0.3));
 }
 
 .radar-container canvas {
@@ -383,7 +500,7 @@
     height: 140px !important;
 }
 
-/* Stats Values - Below radar */
+/* Stats Values - Digital display */
 .stats-values {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -395,12 +512,25 @@
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
+    padding: 0.25rem;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid hsla(180, 100%, 50%, 0.2);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: hsla(180, 100%, 50%, 0.4);
+    transform: translateY(-2px);
 }
 
 .stat-label {
     font-family: 'Roboto Mono', monospace;
-    font-size: 0.625rem;
-    color: var(--color-text-secondary);
+    font-size: 0.5rem;
+    color: hsl(180, 100%, 50%);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .stat-value {
@@ -408,23 +538,46 @@
     font-size: 0.875rem;
     font-weight: 700;
     color: hsl(180, 100%, 70%);
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.5),
+        0 0 10px hsla(180, 100%, 50%, 0.3);
 }
 
-/* Status Section */
+/* Status Section - Digital display */
 .crew-status-section {
     text-align: center;
     font-family: var(--font-display);
     padding: 0.75rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 10, 20, 0.6);
     border-radius: 4px;
     border: 1px solid hsla(180, 100%, 50%, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.crew-status-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(90deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.02) 2px,
+            rgba(0, 255, 255, 0.02) 4px);
+    pointer-events: none;
 }
 
 .status-header {
-    font-size: 0.625rem;
-    letter-spacing: 2px;
-    color: hsl(180, 100%, 60%);
+    font-size: 0.5rem;
+    letter-spacing: 3px;
+    color: hsl(180, 100%, 50%);
     margin-bottom: 0.5rem;
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.8),
+        0 0 10px hsla(180, 100%, 50%, 0.4);
 }
 
 .status-content {
@@ -440,7 +593,9 @@
     height: 8px;
     border-radius: 50%;
     background: hsl(140, 80%, 50%);
-    box-shadow: 0 0 8px hsla(140, 80%, 50%, 0.8);
+    box-shadow:
+        0 0 8px hsla(140, 80%, 50%, 0.8),
+        0 0 15px hsla(140, 80%, 50%, 0.5);
     animation: statusPulse 2s ease-in-out infinite;
 }
 
@@ -449,30 +604,40 @@
     0%,
     100% {
         opacity: 1;
+        transform: scale(1);
     }
 
     50% {
-        opacity: 0.5;
+        opacity: 0.6;
+        transform: scale(0.9);
     }
 }
 
 .status-indicator.작전-중,
 .status-indicator.operational {
     background: hsl(140, 80%, 50%);
-    box-shadow: 0 0 8px hsla(140, 80%, 50%, 0.8);
+    box-shadow:
+        0 0 8px hsla(140, 80%, 50%, 0.8),
+        0 0 15px hsla(140, 80%, 50%, 0.5);
 }
 
 .status-text {
     font-size: 0.875rem;
     font-weight: 700;
     color: hsl(140, 80%, 50%);
-    text-shadow: 0 0 8px hsla(140, 80%, 50%, 0.5);
+    text-shadow:
+        0 0 8px hsla(140, 80%, 50%, 0.6),
+        0 0 15px hsla(140, 80%, 50%, 0.3);
     text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .status-location {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
+    font-size: 0.625rem;
+    color: hsl(180, 60%, 60%);
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px hsla(180, 100%, 50%, 0.2);
 }
 
 /* Comms Protocol Table - Keep existing */
