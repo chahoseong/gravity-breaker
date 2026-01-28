@@ -1,33 +1,42 @@
 {
   "mission": {
     "id": "ARES-1",
-    "title": "CREW MANIFEST",
-    "classification": "CLASSIFIED",
+    "title": "크루 명단",
+    "classification": "기밀",
     "trajectory": {
-      "from": "Earth",
-      "to": "Mars",
+      "from": "지구",
+      "to": "화성",
       "progress": 65
     }
   },
   "crew": [
     {
-      "callsign": "ARES-1 LEAD",
+      "callsign": "ARES-1 리더",
       "realName": "홍길동",
-      "role": "Mission Director",
-      "department": "Command",
+      "role": "미션 디렉터",
+      "department": "지휘부",
       "photo": "member1.jpg",
       "contact": {
         "commsId": "BHC1SX901",
         "techLog": "github.com/lead"
       },
       "status": {
-        "location": "Earth Orbit",
-        "availability": "OPERATIONAL"
+        "location": "지구 궤도",
+        "availability": "작전 중"
       },
       "techStack": [
-        { "name": "Python", "icon": "🐍" },
-        { "name": "AWS", "icon": "☁️" },
-        { "name": "Docker", "icon": "🐳" }
+        {
+          "name": "Python",
+          "icon": "🐍"
+        },
+        {
+          "name": "AWS",
+          "icon": "☁️"
+        },
+        {
+          "name": "Docker",
+          "icon": "🐳"
+        }
       ],
       "radarData": {
         "focus": 95,
@@ -38,23 +47,32 @@
       }
     },
     {
-      "callsign": "STARGAZER",
+      "callsign": "스타게이저",
       "realName": "김철수",
-      "role": "Navigation",
-      "department": "Flight Ops",
+      "role": "항법사",
+      "department": "비행 운영",
       "photo": "member2.jpg",
       "contact": {
         "commsId": "BHC1S1BG5",
         "techLog": "github.com/stargazer"
       },
       "status": {
-        "location": "Earth Orbit",
-        "availability": "OPERATIONAL"
+        "location": "지구 궤도",
+        "availability": "작전 중"
       },
       "techStack": [
-        { "name": "Python", "icon": "🐍" },
-        { "name": "C++", "icon": "⚙️" },
-        { "name": "AWS", "icon": "☁️" }
+        {
+          "name": "Python",
+          "icon": "🐍"
+        },
+        {
+          "name": "C++",
+          "icon": "⚙️"
+        },
+        {
+          "name": "AWS",
+          "icon": "☁️"
+        }
       ],
       "radarData": {
         "focus": 88,
@@ -65,23 +83,32 @@
       }
     },
     {
-      "callsign": "BIO-ENGINEER",
+      "callsign": "바이오 엔지니어",
       "realName": "이영희",
-      "role": "Life-Engineer",
-      "department": "Life Support",
+      "role": "생명 공학자",
+      "department": "생명 유지",
       "photo": "member3.jpg",
       "contact": {
         "commsId": "BHC1S13DA",
         "techLog": "github.com/bio-eng"
       },
       "status": {
-        "location": "Earth Orbit",
-        "availability": "OPERATIONAL"
+        "location": "지구 궤도",
+        "availability": "작전 중"
       },
       "techStack": [
-        { "name": "React", "icon": "⚛️" },
-        { "name": "Node", "icon": "🟢" },
-        { "name": "AWS", "icon": "☁️" }
+        {
+          "name": "React",
+          "icon": "⚛️"
+        },
+        {
+          "name": "Node",
+          "icon": "🟢"
+        },
+        {
+          "name": "AWS",
+          "icon": "☁️"
+        }
       ],
       "radarData": {
         "focus": 90,
@@ -94,21 +121,30 @@
     {
       "callsign": "ARES-1",
       "realName": "박민수",
-      "role": "Systems Engineer",
-      "department": "Life Support",
+      "role": "시스템 엔지니어",
+      "department": "생명 유지",
       "photo": "member4.jpg",
       "contact": {
         "commsId": "BHC1S1GU5",
         "techLog": "github.com/ares1"
       },
       "status": {
-        "location": "Earth Orbit",
-        "availability": "OPERATIONAL"
+        "location": "지구 궤도",
+        "availability": "작전 중"
       },
       "techStack": [
-        { "name": "Rust", "icon": "🦀" },
-        { "name": "Go", "icon": "🔷" },
-        { "name": "K8s", "icon": "☸️" }
+        {
+          "name": "Rust",
+          "icon": "🦀"
+        },
+        {
+          "name": "Go",
+          "icon": "🔷"
+        },
+        {
+          "name": "K8s",
+          "icon": "☸️"
+        }
       ],
       "radarData": {
         "focus": 92,

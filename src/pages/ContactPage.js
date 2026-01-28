@@ -36,7 +36,7 @@ export class ContactPage {
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const radius = 70;
-        const labels = ['Focus', 'Nav', 'Eng', 'Comm', 'Surv'];
+        const labels = ['집중', '항법', '공학', '통신', '생존'];
         const values = [data.focus, data.navigation, data.engineering, data.communication, data.survival];
         const numPoints = 5;
 
@@ -148,12 +148,12 @@ export class ContactPage {
                 </div>
                 
                 <div class="crew-header">
-                    <div class="callsign-label">CALLSIGN:</div>
+                    <div class="callsign-label">호출 부호:</div>
                     <div class="callsign">${member.callsign}</div>
                 </div>
                 
                 <div class="crew-info">
-                    <div class="role-label">ROLE:</div>
+                    <div class="role-label">역할:</div>
                     <div class="role">${member.role}</div>
                 </div>
                 
@@ -171,8 +171,8 @@ export class ContactPage {
                 </div>
                 
                 <div class="crew-status">
-                    <span class="status-label">STATUS:</span>
-                    <span class="status-value ${member.status.availability.toLowerCase()}">${member.status.availability}</span>
+                    <span class="status-label">상태:</span>
+                    <span class="status-value ${member.status.availability.toLowerCase().replace(' ', '-')}">${member.status.availability}</span>
                     <span class="status-location">(${member.status.location})</span>
                 </div>
             </div>
@@ -184,13 +184,13 @@ export class ContactPage {
 
         return `
             <div class="comms-protocol">
-                <div class="comms-header">COMMS PROTOCOL</div>
+                <div class="comms-header">통신 프로토콜</div>
                 <div class="comms-table">
                     <div class="table-header">
-                        <div class="col-callsign">CALLSIGN</div>
-                        <div class="col-role">ROLE</div>
-                        <div class="col-comms">COMMS ID</div>
-                        <div class="col-tech">TECH LOG</div>
+                        <div class="col-callsign">호출 부호</div>
+                        <div class="col-role">역할</div>
+                        <div class="col-comms">통신 ID</div>
+                        <div class="col-tech">기술 로그</div>
                     </div>
                     ${this.teamData.crew.map(member => `
                         <div class="table-row">
@@ -213,7 +213,7 @@ export class ContactPage {
         if (!this.teamData) {
             return `
                 <div class="page contact-page">
-                    <div class="loading">Loading crew manifest...</div>
+                    <div class="loading">크루 명단 로딩 중...</div>
                 </div>
             `;
         }
