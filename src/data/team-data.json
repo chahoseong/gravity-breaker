@@ -1,0 +1,122 @@
+{
+  "mission": {
+    "id": "ARES-1",
+    "title": "CREW MANIFEST",
+    "classification": "CLASSIFIED",
+    "trajectory": {
+      "from": "Earth",
+      "to": "Mars",
+      "progress": 65
+    }
+  },
+  "crew": [
+    {
+      "callsign": "ARES-1 LEAD",
+      "realName": "홍길동",
+      "role": "Mission Director",
+      "department": "Command",
+      "photo": "member1.jpg",
+      "contact": {
+        "commsId": "BHC1SX901",
+        "techLog": "github.com/lead"
+      },
+      "status": {
+        "location": "Earth Orbit",
+        "availability": "OPERATIONAL"
+      },
+      "techStack": [
+        { "name": "Python", "icon": "🐍" },
+        { "name": "AWS", "icon": "☁️" },
+        { "name": "Docker", "icon": "🐳" }
+      ],
+      "radarData": {
+        "focus": 95,
+        "navigation": 88,
+        "engineering": 92,
+        "communication": 85,
+        "survival": 90
+      }
+    },
+    {
+      "callsign": "STARGAZER",
+      "realName": "김철수",
+      "role": "Navigation",
+      "department": "Flight Ops",
+      "photo": "member2.jpg",
+      "contact": {
+        "commsId": "BHC1S1BG5",
+        "techLog": "github.com/stargazer"
+      },
+      "status": {
+        "location": "Earth Orbit",
+        "availability": "OPERATIONAL"
+      },
+      "techStack": [
+        { "name": "Python", "icon": "🐍" },
+        { "name": "C++", "icon": "⚙️" },
+        { "name": "AWS", "icon": "☁️" }
+      ],
+      "radarData": {
+        "focus": 88,
+        "navigation": 95,
+        "engineering": 85,
+        "communication": 80,
+        "survival": 87
+      }
+    },
+    {
+      "callsign": "BIO-ENGINEER",
+      "realName": "이영희",
+      "role": "Life-Engineer",
+      "department": "Life Support",
+      "photo": "member3.jpg",
+      "contact": {
+        "commsId": "BHC1S13DA",
+        "techLog": "github.com/bio-eng"
+      },
+      "status": {
+        "location": "Earth Orbit",
+        "availability": "OPERATIONAL"
+      },
+      "techStack": [
+        { "name": "React", "icon": "⚛️" },
+        { "name": "Node", "icon": "🟢" },
+        { "name": "AWS", "icon": "☁️" }
+      ],
+      "radarData": {
+        "focus": 90,
+        "navigation": 75,
+        "engineering": 88,
+        "communication": 92,
+        "survival": 95
+      }
+    },
+    {
+      "callsign": "ARES-1",
+      "realName": "박민수",
+      "role": "Systems Engineer",
+      "department": "Life Support",
+      "photo": "member4.jpg",
+      "contact": {
+        "commsId": "BHC1S1GU5",
+        "techLog": "github.com/ares1"
+      },
+      "status": {
+        "location": "Earth Orbit",
+        "availability": "OPERATIONAL"
+      },
+      "techStack": [
+        { "name": "Rust", "icon": "🦀" },
+        { "name": "Go", "icon": "🔷" },
+        { "name": "K8s", "icon": "☸️" }
+      ],
+      "radarData": {
+        "focus": 92,
+        "navigation": 82,
+        "engineering": 95,
+        "communication": 78,
+        "survival": 85
+      }
+    }
+  ]
+}

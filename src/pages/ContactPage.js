@@ -1,17 +1,31 @@
-import { missionData } from '../data/teamData.js';
-
 export class ContactPage {
     constructor() {
-        this.missionData = missionData;
+        this.teamData = null;
     }
 
-    mount() {
-        // Initialize radar charts after DOM is ready
-        setTimeout(() => {
-            this.missionData.team_members.forEach((member, index) => {
-                this.drawRadarChart(`radar-${index}`, member.radar_chart_data);
-            });
-        }, 100);
+    async loadData() {
+        try {
+            const response = await fetch('/src/data/team-data.json');
+            this.teamData = await response.json();
+        } catch (error) {
+            console.error('Failed to load team data:', error);
+            this.teamData = { mission: {}, crew: [] };
+        }
+    }
+
+    async mount() {
+        await this.loadData();
+        // Re-render with loaded data
+        const mainContent = document.getElementById('main-content');
+        if (mainContent && this.teamData) {
+            mainContent.innerHTML = this.render();
+            // Initialize radar charts after DOM is ready
+            setTimeout(() => {
+                this.teamData.crew.forEach((member, index) => {
+                    this.drawRadarChart(`radar-${index}`, member.radarData);
+                });
+            }, 100);
+        }
     }
 
     drawRadarChart(canvasId, data) {
@@ -21,7 +35,7 @@ export class ContactPage {
         const ctx = canvas.getContext('2d');
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius = 80;
+        const radius = 70;
         const labels = ['Focus', 'Nav', 'Eng', 'Comm', 'Surv'];
         const values = [data.focus, data.navigation, data.engineering, data.communication, data.survival];
         const numPoints = 5;
@@ -29,8 +43,8 @@ export class ContactPage {
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw background grid
-        ctx.strokeStyle = 'hsla(0, 0%, 100%, 0.1)';
+        // Draw background grid (pentagon)
+        ctx.strokeStyle = 'hsla(180, 100%, 50%, 0.15)';
         ctx.lineWidth = 1;
         for (let i = 1; i <= 5; i++) {
             ctx.beginPath();
@@ -56,8 +70,8 @@ export class ContactPage {
         }
 
         // Draw data polygon
-        ctx.fillStyle = 'hsla(210, 100%, 50%, 0.2)';
-        ctx.strokeStyle = 'hsl(210, 100%, 50%)';
+        ctx.fillStyle = 'hsla(180, 100%, 50%, 0.2)';
+        ctx.strokeStyle = 'hsl(180, 100%, 50%)';
         ctx.lineWidth = 2;
         ctx.beginPath();
         for (let i = 0; i <= numPoints; i++) {
@@ -74,7 +88,7 @@ export class ContactPage {
         ctx.stroke();
 
         // Draw points
-        ctx.fillStyle = 'hsl(210, 100%, 50%)';
+        ctx.fillStyle = 'hsl(180, 100%, 50%)';
         for (let i = 0; i < numPoints; i++) {
             const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2;
             const value = values[i] / 100;
@@ -82,125 +96,137 @@ export class ContactPage {
             const x = centerX + r * Math.cos(angle);
             const y = centerY + r * Math.sin(angle);
             ctx.beginPath();
-            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
             ctx.fill();
         }
-
-        // Draw labels
-        ctx.fillStyle = 'hsl(0, 0%, 96%)';
-        ctx.font = '10px monospace';
-        ctx.textAlign = 'center';
-        for (let i = 0; i < numPoints; i++) {
-            const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2;
-            const x = centerX + (radius + 20) * Math.cos(angle);
-            const y = centerY + (radius + 20) * Math.sin(angle);
-            ctx.fillText(labels[i], x, y + 4);
-        }
     }
 
-    getStatusColor(availability) {
-        switch (availability) {
-            case 'In-Operation': return 'var(--color-success)';
-            case 'Stand-by': return 'var(--color-primary)';
-            case 'Off-duty': return 'var(--color-text-secondary)';
-            default: return 'var(--color-danger)';
-        }
-    }
+    renderMissionHeader() {
+        if (!this.teamData || !this.teamData.mission) return '';
 
-    renderMemberCard(member, index) {
+        const { classification, id, title, trajectory } = this.teamData.mission;
+
         return `
-            <div class="member-card">
-                <!-- Corner Brackets -->
-                <div class="corner-bracket top-left"></div>
-                <div class="corner-bracket top-right"></div>
-                <div class="corner-bracket bottom-left"></div>
-                <div class="corner-bracket bottom-right"></div>
-
-                <!-- Header -->
-                <div class="member-header">
-                    <div class="callsign">${member.callsign}</div>
-                    <div class="status-indicator" style="background: ${this.getStatusColor(member.status.availability)}"></div>
+            <div class="mission-header">
+                <div class="mission-title">
+                    <span class="classification">[${classification}]</span>
+                    <span class="mission-id">MISSION ${id}:</span>
+                    <span class="mission-name">${title}</span>
                 </div>
-
-                <!-- Main Info -->
-                <div class="member-info">
-                    <h3 class="member-name">${member.real_name}</h3>
-                    <div class="member-role">${member.mission_role}</div>
-                    <div class="member-dept">${member.department}</div>
-                </div>
-
-                <!-- Radar Chart -->
-                <div class="radar-container">
-                    <canvas id="radar-${index}" width="200" height="200"></canvas>
-                </div>
-
-                <!-- Status Panel -->
-                <div class="status-panel">
-                    <div class="status-row">
-                        <span class="label">LOCATION:</span>
-                        <span class="value">${member.status.location}</span>
+                <div class="trajectory-bar">
+                    <div class="trajectory-start">
+                        <div class="planet-icon earth">🌍</div>
+                        <span>${trajectory.from}</span>
                     </div>
-                    <div class="status-row">
-                        <span class="label">STATUS:</span>
-                        <span class="value" style="color: ${this.getStatusColor(member.status.availability)}">${member.status.availability}</span>
+                    <div class="trajectory-progress">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: ${trajectory.progress}%"></div>
+                            <div class="rocket-icon" style="left: ${trajectory.progress}%">🚀</div>
+                        </div>
+                        <span class="trajectory-label">MARS TRAJECTORY</span>
                     </div>
-                    <div class="status-row">
-                        <span class="label">VITAL:</span>
-                        <span class="value">${member.status.vital_sign}</span>
-                    </div>
-                </div>
-
-                <!-- Core Modules -->
-                <div class="core-modules">
-                    <div class="modules-label">CORE MODULES</div>
-                    <div class="modules-list">
-                        ${member.core_modules.map(module => `<span class="module-tag">${module}</span>`).join('')}
-                    </div>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <div class="contact-row">
-                        <span class="icon">📡</span>
-                        <a href="mailto:${member.contact.comm_id}" class="contact-link">${member.contact.comm_id}</a>
-                    </div>
-                    <div class="contact-row">
-                        <span class="icon">💻</span>
-                        <a href="https://${member.contact.tech_logs}" target="_blank" class="contact-link">${member.contact.tech_logs}</a>
-                    </div>
-                    <div class="contact-row">
-                        <span class="icon">🔐</span>
-                        <span class="encryption-key">${member.contact.encryption_key}</span>
+                    <div class="trajectory-end">
+                        <span>${trajectory.to}</span>
+                        <div class="planet-icon mars">🔴</div>
                     </div>
                 </div>
             </div>
         `;
     }
 
+    renderCrewCard(member, index) {
+        return `
+            <div class="crew-card">
+                <div class="card-corner tl"></div>
+                <div class="card-corner tr"></div>
+                <div class="card-corner bl"></div>
+                <div class="card-corner br"></div>
+                
+                <div class="crew-photo-container">
+                    <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
+                    <div class="photo-glow"></div>
+                </div>
+                
+                <div class="crew-header">
+                    <div class="callsign-label">CALLSIGN:</div>
+                    <div class="callsign">${member.callsign}</div>
+                </div>
+                
+                <div class="crew-info">
+                    <div class="role-label">ROLE:</div>
+                    <div class="role">${member.role}</div>
+                </div>
+                
+                <div class="tech-stack">
+                    ${member.techStack.map(tech => `
+                        <div class="tech-icon" title="${tech.name}">
+                            <span class="icon">${tech.icon}</span>
+                            <span class="tech-name">${tech.name}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="radar-section">
+                    <canvas id="radar-${index}" width="180" height="180"></canvas>
+                </div>
+                
+                <div class="crew-status">
+                    <span class="status-label">STATUS:</span>
+                    <span class="status-value ${member.status.availability.toLowerCase()}">${member.status.availability}</span>
+                    <span class="status-location">(${member.status.location})</span>
+                </div>
+            </div>
+        `;
+    }
+
+    renderCommsTable() {
+        if (!this.teamData || !this.teamData.crew) return '';
+
+        return `
+            <div class="comms-protocol">
+                <div class="comms-header">COMMS PROTOCOL</div>
+                <div class="comms-table">
+                    <div class="table-header">
+                        <div class="col-callsign">CALLSIGN</div>
+                        <div class="col-role">ROLE</div>
+                        <div class="col-comms">COMMS ID</div>
+                        <div class="col-tech">TECH LOG</div>
+                    </div>
+                    ${this.teamData.crew.map(member => `
+                        <div class="table-row">
+                            <div class="col-callsign">${member.callsign}</div>
+                            <div class="col-role">${member.role}</div>
+                            <div class="col-comms">${member.contact.commsId}</div>
+                            <div class="col-tech">
+                                <a href="https://${member.contact.techLog}" target="_blank" class="tech-link">
+                                    ${member.contact.techLog}
+                                </a>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
     render() {
+        if (!this.teamData) {
+            return `
+                <div class="page contact-page">
+                    <div class="loading">Loading crew manifest...</div>
+                </div>
+            `;
+        }
+
         return `
             <div class="page contact-page">
-                <!-- Hero Section -->
-                <div class="contact-hero">
-                    <div class="mission-badge">MISSION ${this.missionData.mission_id}</div>
-                    <h1 class="page-title">CREW MANIFEST</h1>
-                    <p class="page-subtitle">Elite team pushing the boundaries of propulsion technology</p>
-                    <div class="grid-overlay"></div>
+                ${this.renderMissionHeader()}
+                
+                <div class="crew-grid">
+                    ${this.teamData.crew.map((member, index) => this.renderCrewCard(member, index)).join('')}
                 </div>
-
-                <!-- Team Grid -->
-                <div class="container">
-                    <div class="team-grid">
-                        ${this.missionData.team_members.map((member, index) => this.renderMemberCard(member, index)).join('')}
-                    </div>
-                </div>
-
-                <!-- Footer CTA -->
-                <div class="contact-cta">
-                    <h2>JOIN THE MISSION</h2>
-                    <p>We're always looking for exceptional talent to join our crew.</p>
-                    <a href="mailto:recruit@mars.inc" class="btn-primary">SEND TRANSMISSION</a>
-                </div>
+                
+                ${this.renderCommsTable()}
             </div>
         `;
     }
