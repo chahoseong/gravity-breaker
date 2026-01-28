@@ -5,7 +5,7 @@ export class ContactPage {
 
     async loadData() {
         try {
-            const response = await fetch('/src/data/team-data.json');
+            const response = await fetch('./src/data/team-data.json');
             this.teamData = await response.json();
         } catch (error) {
             console.error('Failed to load team data:', error);
