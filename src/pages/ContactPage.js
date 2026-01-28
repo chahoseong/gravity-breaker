@@ -35,7 +35,7 @@ export class ContactPage {
         const ctx = canvas.getContext('2d');
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius = 70;
+        const radius = 35;
         const labels = ['집중', '항법', '공학', '통신', '생존'];
         const values = [data.focus, data.navigation, data.engineering, data.communication, data.survival];
         const numPoints = 5;
@@ -145,6 +145,9 @@ export class ContactPage {
                 <div class="crew-photo-container">
                     <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
                     <div class="photo-glow"></div>
+                    <div class="radar-section">
+                        <canvas id="radar-${index}" width="100" height="100"></canvas>
+                    </div>
                 </div>
                 
                 <div class="crew-header">
@@ -164,10 +167,6 @@ export class ContactPage {
                             <span class="tech-name">${tech.name}</span>
                         </div>
                     `).join('')}
-                </div>
-                
-                <div class="radar-section">
-                    <canvas id="radar-${index}" width="180" height="180"></canvas>
                 </div>
                 
                 <div class="crew-status">
