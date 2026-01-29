@@ -1,0 +1,825 @@
+﻿/* Contact Page - Redesigned Compact Layout */
+
+/* Page Layout with Background */
+.contact-page {
+    min-height: 100vh;
+    background:
+        /* Dark overlay for readability */
+        linear-gradient(to bottom,
+            rgba(10, 15, 25, 0.85) 0%,
+            rgba(15, 20, 30, 0.75) 50%,
+            rgba(10, 15, 25, 0.85) 100%),
+        /* Space warp background image */
+        url('/src/assets/images/backgrounds/space-warp.png') center center / cover no-repeat fixed,
+        /* Fallback gradient */
+        radial-gradient(ellipse at top, hsl(220, 30%, 12%) 0%, hsl(220, 20%, 8%) 50%),
+        linear-gradient(180deg, hsl(220, 20%, 8%) 0%, hsl(210, 25%, 10%) 100%);
+    padding: 2rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Mission Header - Keep existing */
+.mission-header {
+    max-width: 1400px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background: rgba(20, 30, 45, 0.6);
+    backdrop-filter: blur(10px);
+    border: 2px solid hsl(180, 100%, 50%);
+    border-radius: 8px;
+    box-shadow:
+        0 0 30px hsla(180, 100%, 50%, 0.3),
+        inset 0 0 20px hsla(180, 100%, 50%, 0.05);
+}
+
+.mission-title {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: hsl(180, 100%, 70%);
+    text-shadow: 0 0 20px hsla(180, 100%, 50%, 0.5);
+}
+
+.classification {
+    color: hsl(0, 80%, 60%);
+    margin-right: 0.5rem;
+}
+
+.mission-id {
+    color: hsl(180, 100%, 60%);
+    margin-right: 0.5rem;
+}
+
+.mission-name {
+    color: hsl(180, 100%, 80%);
+}
+
+/* Trajectory Bar - Keep existing */
+.trajectory-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.trajectory-start,
+.trajectory-end {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    color: hsl(180, 100%, 70%);
+}
+
+.planet-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.planet-icon.earth {
+    color: hsl(200, 80%, 60%);
+}
+
+.planet-icon.mars {
+    color: hsl(15, 90%, 55%);
+}
+
+.trajectory-progress {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trajectory-label {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: hsl(180, 100%, 60%);
+}
+
+.progress-track {
+    position: relative;
+    height: 8px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid hsl(180, 100%, 50%);
+    border-radius: 4px;
+    overflow: visible;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg,
+            hsl(180, 100%, 50%) 0%,
+            hsl(200, 100%, 60%) 50%,
+            hsl(15, 90%, 55%) 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 15px hsla(180, 100%, 50%, 0.6);
+    transition: width 0.5s ease;
+}
+
+.rocket-icon {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25rem;
+    filter: drop-shadow(0 0 8px hsl(25, 100%, 50%));
+    animation: rocketPulse 2s ease-in-out infinite;
+}
+
+@keyframes rocketPulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* Crew Grid - Compact 2-column layout */
+.crew-grid {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+/* Crew Card - Compact vertical design */
+.crew-card {
+    position: relative;
+    background: linear-gradient(135deg,
+            rgba(20, 30, 45, 0.9) 0%,
+            rgba(30, 40, 55, 0.8) 100%);
+    backdrop-filter: blur(12px);
+    border: 2px solid hsl(180, 100%, 50%);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 20px hsla(180, 100%, 50%, 0.2),
+        inset 0 0 20px hsla(180, 100%, 50%, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.crew-card:hover {
+    transform: translateY(-4px);
+    border-color: hsl(180, 100%, 60%);
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.6),
+        0 0 40px hsla(180, 100%, 50%, 0.4),
+        inset 0 0 30px hsla(180, 100%, 50%, 0.1);
+}
+
+/* Card Corners */
+.card-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid hsl(180, 100%, 50%);
+    transition: all 0.3s ease;
+}
+
+.card-corner.tl {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.card-corner.tr {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.card-corner.bl {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+}
+
+.card-corner.br {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+.crew-card:hover .card-corner {
+    width: 16px;
+    height: 16px;
+    border-color: hsl(25, 100%, 50%);
+}
+
+/* Header Section - Photo + Identity */
+.crew-header-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid hsla(180, 100%, 50%, 0.2);
+}
+
+/* Crew Photo - Visible size (120px) for team profiles */
+.crew-photo-container {
+    position: relative;
+    width: 120px !important;
+    height: 120px !important;
+    flex-shrink: 0;
+}
+
+.crew-photo {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid hsl(180, 100%, 50%);
+    box-shadow:
+        0 0 10px hsla(180, 100%, 50%, 0.5),
+        inset 0 0 8px rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    filter: brightness(1.1) contrast(1.05);
+}
+
+.crew-card:hover .crew-photo {
+    border-color: hsl(180, 100%, 60%);
+    box-shadow:
+        0 0 15px hsla(180, 100%, 50%, 0.8),
+        inset 0 0 12px rgba(0, 255, 255, 0.2);
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.photo-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 4px;
+    background: radial-gradient(circle,
+            hsla(180, 100%, 50%, 0.2) 0%,
+            transparent 70%);
+    pointer-events: none;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Crew Identity - Hologram text effects */
+.crew-identity {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+/* Scan line overlay on text */
+.crew-identity::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.03) 2px,
+            rgba(0, 255, 255, 0.03) 4px);
+    pointer-events: none;
+    animation: scanMove 8s linear infinite;
+}
+
+@keyframes scanMove {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(4px);
+    }
+}
+
+.callsign-section,
+.role-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.callsign-label,
+.role-label {
+    font-family: var(--font-display);
+    font-size: 0.5rem;
+    letter-spacing: 2px;
+    color: hsl(180, 100%, 50%);
+    text-transform: uppercase;
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.8),
+        0 0 10px hsla(180, 100%, 50%, 0.4);
+    opacity: 0.9;
+}
+
+.callsign {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: hsl(180, 100%, 80%);
+    text-shadow:
+        0 0 10px hsla(180, 100%, 50%, 0.6),
+        0 0 20px hsla(180, 100%, 50%, 0.3),
+        0 0 30px hsla(180, 100%, 50%, 0.2);
+    position: relative;
+    animation: textFlicker 3s ease-in-out infinite;
+}
+
+@keyframes textFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.95;
+    }
+
+    51% {
+        opacity: 1;
+    }
+
+    52% {
+        opacity: 0.98;
+    }
+
+    53% {
+        opacity: 1;
+    }
+}
+
+.crew-card:hover .callsign {
+    animation: textGlitch 0.3s ease;
+}
+
+@keyframes textGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        text-shadow:
+            0 0 10px hsla(180, 100%, 50%, 0.6),
+            0 0 20px hsla(180, 100%, 50%, 0.3);
+    }
+
+    25% {
+        transform: translateX(-2px);
+        text-shadow:
+            -2px 0 hsla(0, 100%, 50%, 0.5),
+            2px 0 hsla(180, 100%, 50%, 0.5);
+    }
+
+    75% {
+        transform: translateX(2px);
+        text-shadow:
+            2px 0 hsla(0, 100%, 50%, 0.5),
+            -2px 0 hsla(180, 100%, 50%, 0.5);
+    }
+}
+
+.role {
+    font-size: 0.75rem;
+    color: hsl(180, 80%, 70%);
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 5px hsla(180, 100%, 50%, 0.3);
+}
+
+/* Tech Stack - Horizontal badges */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.25rem;
+}
+
+.tech-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid hsl(180, 100%, 50%);
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.625rem;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+
+.tech-badge:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: hsl(180, 100%, 60%);
+    transform: translateY(-1px);
+}
+
+.tech-icon-small {
+    font-size: 0.875rem;
+}
+
+.tech-name-small {
+    font-size: 0.625rem;
+}
+
+/* Stats Section - Hologram display */
+.crew-stats-section {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: rgba(0, 10, 20, 0.6);
+    border: 1px solid hsla(180, 100%, 50%, 0.3);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.crew-stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 255, 255, 0.02) 1px,
+            rgba(0, 255, 255, 0.02) 2px);
+    pointer-events: none;
+}
+
+.stats-label {
+    font-family: var(--font-display);
+    font-size: 0.625rem;
+    letter-spacing: 3px;
+    color: hsl(180, 100%, 60%);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 8px hsla(180, 100%, 50%, 0.6),
+        0 0 15px hsla(180, 100%, 50%, 0.3);
+}
+
+.radar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 0 10px hsla(180, 100%, 50%, 0.3));
+}
+
+.radar-container canvas {
+    width: 140px !important;
+    height: 140px !important;
+}
+
+/* Stats Values - Digital display */
+.stats-values {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid hsla(180, 100%, 50%, 0.2);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: hsla(180, 100%, 50%, 0.4);
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.5rem;
+    color: hsl(180, 100%, 50%);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: hsl(180, 100%, 70%);
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.5),
+        0 0 10px hsla(180, 100%, 50%, 0.3);
+}
+
+/* Status Section - Digital display */
+.crew-status-section {
+    text-align: center;
+    font-family: var(--font-display);
+    padding: 0.75rem;
+    background: rgba(0, 10, 20, 0.6);
+    border-radius: 4px;
+    border: 1px solid hsla(180, 100%, 50%, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.crew-status-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(90deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.02) 2px,
+            rgba(0, 255, 255, 0.02) 4px);
+    pointer-events: none;
+}
+
+.status-header {
+    font-size: 0.5rem;
+    letter-spacing: 3px;
+    color: hsl(180, 100%, 50%);
+    margin-bottom: 0.5rem;
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.8),
+        0 0 10px hsla(180, 100%, 50%, 0.4);
+}
+
+.status-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(140, 80%, 50%);
+    box-shadow:
+        0 0 8px hsla(140, 80%, 50%, 0.8),
+        0 0 15px hsla(140, 80%, 50%, 0.5);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(0.9);
+    }
+}
+
+.status-indicator.?묒쟾-以?
+.status-indicator.operational {
+    background: hsl(140, 80%, 50%);
+    box-shadow:
+        0 0 8px hsla(140, 80%, 50%, 0.8),
+        0 0 15px hsla(140, 80%, 50%, 0.5);
+}
+
+.status-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: hsl(140, 80%, 50%);
+    text-shadow:
+        0 0 8px hsla(140, 80%, 50%, 0.6),
+        0 0 15px hsla(140, 80%, 50%, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.status-location {
+    font-size: 0.625rem;
+    color: hsl(180, 60%, 60%);
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px hsla(180, 100%, 50%, 0.2);
+}
+
+/* Comms Protocol Table - Keep existing */
+.comms-protocol {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(20, 30, 45, 0.6);
+    backdrop-filter: blur(10px);
+    border: 2px solid hsl(180, 100%, 50%);
+    border-radius: 8px;
+    box-shadow:
+        0 0 30px hsla(180, 100%, 50%, 0.3),
+        inset 0 0 20px hsla(180, 100%, 50%, 0.05);
+}
+
+.comms-header {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    color: hsl(180, 100%, 70%);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 15px hsla(180, 100%, 50%, 0.5);
+}
+
+.comms-table {
+    width: 100%;
+}
+
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid hsla(180, 100%, 50%, 0.2);
+}
+
+.table-header {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: hsl(180, 100%, 60%);
+    background: rgba(0, 255, 255, 0.05);
+}
+
+.table-row {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    transition: all 0.2s ease;
+}
+
+.table-row:hover {
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.tech-link {
+    color: hsl(180, 100%, 60%);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.tech-link:hover {
+    color: hsl(180, 100%, 80%);
+    text-shadow: 0 0 8px hsla(180, 100%, 50%, 0.5);
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 4rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: hsl(180, 100%, 60%);
+    letter-spacing: 2px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .crew-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .table-header,
+    .table-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .col-comms,
+    .col-tech {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-title {
+        font-size: 1.25rem;
+    }
+
+    .trajectory-bar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .crew-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+
+    .table-header,
+    .table-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+/* Communication Protocol Inline Styles */
+.comms-protocol-inline {
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(0, 10, 20, 0.4);
+    border: 1px solid hsla(180, 100%, 50%, 0.2);
+    border-radius: 4px;
+}
+
+.comms-item {
+    margin-bottom: 0.5rem;
+}
+
+.comms-item:last-child {
+    margin-bottom: 0;
+}
+
+.comms-label {
+    font-family: var(--font-display);
+    font-size: 0.5rem;
+    letter-spacing: 1.5px;
+    color: hsl(180, 100%, 50%);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    text-shadow:
+        0 0 5px hsla(180, 100%, 50%, 0.6),
+        0 0 10px hsla(180, 100%, 50%, 0.3);
+}
+
+.comms-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: hsl(180, 80%, 70%);
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 5px hsla(180, 100%, 50%, 0.2);
+}
+
+.comms-link {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: hsl(180, 80%, 70%);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-shadow: 0 0 5px hsla(180, 100%, 50%, 0.2);
+}
+
+.comms-link:hover {
+    color: hsl(180, 100%, 80%);
+    text-shadow:
+        0 0 10px hsla(180, 100%, 50%, 0.8),
+        0 0 20px hsla(180, 100%, 50%, 0.4);
+    transform: translateX(2px);
+}
