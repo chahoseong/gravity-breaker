@@ -4,7 +4,7 @@ export class Header {
             <header>
                 <nav class="container">
                     <a href="/" data-link class="logo-link">
-                        <img src="assets/img/logo.png" alt="Gravity Breaker Logo" class="nav-logo">
+                        <img src="/assets/img/logo.png" alt="Gravity Breaker Logo" class="nav-logo">
                         <span>Gravity Breaker</span>
                     </a>
                     <ul>

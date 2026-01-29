@@ -79,8 +79,13 @@
 }
 
 .planet-icon {
-    font-size: 2rem;
-    filter: drop-shadow(0 0 10px currentColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    font-size: 5rem;
+    filter: drop-shadow(0 0 30px hsla(180, 100%, 50%, 0.6));
 }
 
 .planet-icon.earth {
@@ -130,8 +135,13 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.25rem;
-    filter: drop-shadow(0 0 8px hsl(25, 100%, 50%));
+    width: 80px;
+    height: 80px;
+    font-size: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 24px hsl(25, 100%, 50%));
     animation: rocketPulse 2s ease-in-out infinite;
 }
 
@@ -149,11 +159,11 @@
 
 /* Crew Grid - Compact 2-column layout */
 .crew-grid {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto 3rem;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
     padding: 0 1rem;
 }
 
@@ -235,11 +245,11 @@
     border-bottom: 1px solid hsla(180, 100%, 50%, 0.2);
 }
 
-/* Crew Photo - Visible size (120px) for team profiles */
+/* Crew Photo - Visible size (100px) for team profiles */
 .crew-photo-container {
     position: relative;
-    width: 120px !important;
-    height: 120px !important;
+    width: 100px !important;
+    height: 100px !important;
     flex-shrink: 0;
 }
 
@@ -504,8 +514,8 @@
 }
 
 .radar-container canvas {
-    width: 140px !important;
-    height: 140px !important;
+    width: 120px !important;
+    height: 120px !important;
 }
 
 /* Stats Values - Digital display */
@@ -621,8 +631,7 @@
     }
 }
 
-.status-indicator.작전-중
-.status-indicator.operational {
+.status-indicator.작전-중 .status-indicator.operational {
     background: hsl(140, 80%, 50%);
     box-shadow:
         0 0 8px hsla(140, 80%, 50%, 0.8),

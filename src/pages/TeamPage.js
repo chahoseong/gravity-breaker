@@ -121,23 +121,20 @@ export class TeamPage {
                 </div>
                 <div class="trajectory-bar">
                     <div class="trajectory-start planet-icon">
-                        <img src="/assets/img/earth.png" alt="Earth" class="planet-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <span style="display:none;">🌍</span>
+                        <span>🌍</span>
                         <span>${trajectory.from}</span>
                     </div>
                     <div class="trajectory-progress">
                         <div class="progress-track">
                             <div class="progress-fill" style="width: ${trajectory.progress}%"></div>
                             <div class="rocket-icon" style="left: ${trajectory.progress}%">
-                                <img src="/assets/img/rocket.png" alt="Rocket" class="rocket-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                                <span style="display:none;">🚀</span>
+                                <span>🚀</span>
                             </div>
                         </div>
                         <div class="trajectory-label">MARS TRAJECTORY</div>
                     </div>
                     <div class="trajectory-end planet-icon">
-                        <img src="/assets/img/mars.png" alt="Mars" class="planet-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <span style="display:none;">🔴</span>
+                        <span>🔴</span>
                         <span>${trajectory.to}</span>
                     </div>
                 </div>
@@ -155,7 +152,7 @@ export class TeamPage {
                 
                 <div class="crew-header-section">
                     <div class="crew-photo-container">
-                        <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
+                        <img src="/assets/img/team/${member.photo}" alt="${member.realName}" class="crew-photo" onerror="this.src='/assets/img/default-face.png';">
                         <div class="photo-glow"></div>
                     </div>
                     
