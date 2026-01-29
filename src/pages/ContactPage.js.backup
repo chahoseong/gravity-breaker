@@ -1,4 +1,4 @@
-export class TeamPage {
+export class ContactPage {
     constructor() {
         this.teamData = null;
     }
@@ -263,7 +263,7 @@ export class TeamPage {
     render() {
         if (!this.teamData) {
             return `
-                <div class="page team-page">
+                <div class="page contact-page">
                     <div class="loading">크루 명단 로딩 중...</div>
                 </div>
             `;
