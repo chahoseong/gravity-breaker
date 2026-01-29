@@ -1,3 +1,4 @@
+
 export class TeamPage {
     constructor() {
         this.teamData = null;
@@ -12,7 +13,6 @@ export class TeamPage {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             this.teamData = await response.json();
-            console.log('Team data loaded successfully:', this.teamData);
         } catch (error) {
             console.error('Failed to load team data:', error);
             this.teamData = { mission: {}, crew: [] };
@@ -270,7 +270,7 @@ export class TeamPage {
         }
 
         return `
-            <div class="page contact-page">
+            <div class="page team-page">
                 ${this.renderMissionHeader()}
                 
                 <div class="crew-grid">

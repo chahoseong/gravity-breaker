@@ -2,6 +2,13 @@
    Imports common components and defines global resets/variables 
 */
 
+/* Import Component Styles - MUST BE FIRST */
+/* Note: component specific styles are also linked in index.html for caching strategies */
+@import "./components.css";
+@import "./landing.css";
+@import "./team.css";
+@import "./contact.css";
+
 /* 1. Global Variables from prompt.md */
 :root {
     /* Colors */
@@ -54,7 +61,3 @@ a {
 ul {
     list-style: none;
 }
-
-/* Import Component Styles - Now loaded directly in HTML */
-/* @import "./components.css?v=3.0"; */
-/* @import "./contact.css?v=3.0"; */
