@@ -1,3 +1,4 @@
+import { resolvePath } from '../utils/paths.js';
 
 export class AboutPage {
     constructor() {
@@ -54,8 +55,9 @@ export class AboutPage {
     render() {
         const t = this.text[this.currentLang];
         const nextLang = this.currentLang === 'en' ? 'ko' : 'en';
-        const btnLabel = this.currentLang === 'en' ? 'KR' : 'EN';
-        const btnText = this.currentLang === 'en' ? '한국어' : 'English';
+
+        const koLabel = this.currentLang === 'ko' ? '<span class="accent-text">Ko</span>' : 'Ko';
+        const enLabel = this.currentLang === 'en' ? '<span class="accent-text">En</span>' : 'En';
 
         // Note: Using 'team-page' class to reuse existing styles from team.css
         return `
@@ -63,7 +65,7 @@ export class AboutPage {
                 <div class="container">
                     <div class="lang-switch-container">
                         <button id="lang-toggle" class="btn-tech-sm" data-lang="${nextLang}">
-                            [ <span class="accent-text">${btnLabel}</span> // ${btnText} ]
+                            [ ${koLabel} / ${enLabel} ]
                         </button>
                     </div>
 

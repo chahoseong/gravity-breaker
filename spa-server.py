@@ -14,19 +14,25 @@ class SPAHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
         """Handle GET requests with SPA routing."""
-        # Get the requested path
         path = self.translate_path(self.path)
         
-        # If path is a directory, serve index.html
-        if os.path.isdir(path):
+        # If it's a SPA route (no extension and doesn't exist)
+        if not os.path.exists(path) and '.' not in os.path.basename(self.path):
+            self.path = '/index.html'
+        elif os.path.isdir(path):
+            # If path is a directory, serve index.html if exists
             index_path = os.path.join(path, 'index.html')
             if os.path.exists(index_path):
                 self.path = '/index.html' if path.endswith(os.getcwd()) else self.path + '/index.html'
-        # If file doesn't exist and it's not a file with extension, serve index.html
-        elif not os.path.exists(path) and '.' not in os.path.basename(self.path):
+
+        return super().do_GET()
+
+    def do_HEAD(self):
+        """Handle HEAD requests with SPA routing."""
+        path = self.translate_path(self.path)
+        if not os.path.exists(path) and '.' not in os.path.basename(self.path):
             self.path = '/index.html'
-        
-        return http.server.SimpleHTTPRequestHandler.do_GET(self)
+        return super().do_HEAD()
 
 def run_server():
     """Run the HTTP server."""

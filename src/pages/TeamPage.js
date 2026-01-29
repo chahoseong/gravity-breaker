@@ -1,3 +1,4 @@
+import { resolvePath } from '../utils/paths.js';
 
 export class TeamPage {
     constructor() {
@@ -6,16 +7,23 @@ export class TeamPage {
 
     async loadData() {
         try {
-            // Use absolute path from root + cache busting
             const timestamp = new Date().getTime();
-            const response = await fetch(`/src/data/team-data.json?v=${timestamp}`);
+            const response = await fetch(resolvePath(`/src/data/team-data.json?v=${timestamp}`));
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             this.teamData = await response.json();
         } catch (error) {
             console.error('Failed to load team data:', error);
-            this.teamData = { mission: {}, crew: [] };
+            this.teamData = {
+                mission: {
+                    id: 'N/A',
+                    title: 'Mission Data Unavailable',
+                    classification: 'N/A',
+                    trajectory: { from: 'N/A', to: 'N/A', progress: 0 }
+                },
+                crew: []
+            };
         }
     }
 
@@ -110,7 +118,17 @@ export class TeamPage {
     renderMissionHeader() {
         if (!this.teamData || !this.teamData.mission) return '';
 
-        const { classification, id, title, trajectory } = this.teamData.mission;
+        const {
+            classification = 'N/A',
+            id = 'N/A',
+            title = 'N/A',
+            trajectory = { from: 'N/A', to: 'N/A', progress: 0 }
+        } = this.teamData.mission;
+
+        // Use optional chaining and default values
+        const from = trajectory?.from || 'N/A';
+        const to = trajectory?.to || 'N/A';
+        const progress = trajectory?.progress || 0;
 
         return `
             <div class="mission-header">
@@ -120,20 +138,22 @@ export class TeamPage {
                     <span class="mission-name">${title}</span>
                 </div>
                 <div class="trajectory-bar">
-                    <div class="trajectory-start">
-                        <div class="planet-icon earth">🌍</div>
-                        <span>${trajectory.from}</span>
+                    <div class="trajectory-start planet-icon">
+                        <span>🌍</span>
+                        <span>${from}</span>
                     </div>
                     <div class="trajectory-progress">
                         <div class="progress-track">
-                            <div class="progress-fill" style="width: ${trajectory.progress}%"></div>
-                            <div class="rocket-icon" style="left: ${trajectory.progress}%">🚀</div>
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                            <div class="rocket-icon" style="left: ${progress}%">
+                                <span>🚀</span>
+                            </div>
                         </div>
-                        <span class="trajectory-label">MARS TRAJECTORY</span>
+                        <div class="trajectory-label">MARS TRAJECTORY</div>
                     </div>
-                    <div class="trajectory-end">
-                        <span>${trajectory.to}</span>
-                        <div class="planet-icon mars">🔴</div>
+                    <div class="trajectory-end planet-icon">
+                        <span>🔴</span>
+                        <span>${to}</span>
                     </div>
                 </div>
             </div>
@@ -150,7 +170,7 @@ export class TeamPage {
                 
                 <div class="crew-header-section">
                     <div class="crew-photo-container">
-                        <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
+                        <img src="${resolvePath(`/assets/img/team/${member.photo}`)}" alt="${member.realName}" class="crew-photo" onerror="this.src='${resolvePath('/assets/img/default-face.png')}';">
                         <div class="photo-glow"></div>
                     </div>
                     
@@ -221,7 +241,12 @@ export class TeamPage {
                 <div class="crew-status-section">
                     <div class="status-header">STATUS:</div>
                     <div class="status-content">
-                        <span class="status-indicator ${member.status.availability.toLowerCase().replace(' ', '-')}"></span>
+                        ${(() => {
+                const statusMap = { '작전 중': 'operational', '대기 중': 'standby', '휴가 중': 'on-leave' };
+                const engClass = statusMap[member.status.availability] || '';
+                const korClass = member.status.availability.toLowerCase().replace(' ', '-');
+                return `<span class="status-indicator ${engClass} ${korClass}"></span>`;
+            })()}
                         <span class="status-text">${member.status.availability}</span>
                     </div>
                     <div class="status-location">(${member.status.location})</div>
@@ -271,13 +296,15 @@ export class TeamPage {
 
         return `
             <div class="page team-page">
-                ${this.renderMissionHeader()}
-                
-                <div class="crew-grid">
-                    ${this.teamData.crew.map((member, index) => this.renderCrewCard(member, index)).join('')}
+                <div class="container">
+                    ${this.renderMissionHeader()}
+                    
+                    <div class="crew-grid">
+                        ${this.teamData.crew.map((member, index) => this.renderCrewCard(member, index)).join('')}
+                    </div>
+                    
+                    ${this.renderCommsTable()}
                 </div>
-                
-                ${this.renderCommsTable()}
             </div>
         `;
     }

@@ -37,7 +37,6 @@ export class App {
 
         // Add Global Event Listener for Navigation
         document.addEventListener('click', (e) => {
-            // Traverse up to find anchor tag if click is on child
             const link = e.target.closest('[data-link]');
             if (link) {
                 e.preventDefault();
