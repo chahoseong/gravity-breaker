@@ -1,12 +1,13 @@
 /* Main Stylesheet 
    Imports common components and defines global resets/variables 
 */
-@import "./components.css";
-@import "./team.css";
 
 /* Import Component Styles - MUST BE FIRST */
+/* Note: component specific styles are also linked in index.html for caching strategies */
 @import "./components.css";
 @import "./landing.css";
+@import "./team.css";
+@import "./contact.css";
 
 /* 1. Global Variables from prompt.md */
 :root {
