@@ -12,8 +12,8 @@ export class App {
         this.footer = new Footer();
 
         this.routes = {
-            '/': LandingPage,
-            '/index.html': LandingPage, // Handle default file
+            '/': LandingPage, // Original Default
+            '/index.html': LandingPage, // Original Default
             '/about': AboutPage,
             '/team': TeamPage,
             '/contact': ContactPage
@@ -37,9 +37,11 @@ export class App {
 
         // Add Global Event Listener for Navigation
         document.addEventListener('click', (e) => {
-            if (e.target.matches('[data-link]')) {
+            // Traverse up to find anchor tag if click is on child
+            const link = e.target.closest('[data-link]');
+            if (link) {
                 e.preventDefault();
-                this.router.navigate(e.target.getAttribute('href'));
+                this.router.navigate(link.getAttribute('href'));
             }
         });
 
