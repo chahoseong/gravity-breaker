@@ -227,11 +227,11 @@
     border-bottom: 1px solid hsla(180, 100%, 50%, 0.2);
 }
 
-/* Crew Photo - Recognizable size (80px) */
+/* Crew Photo - Visible size (120px) for team profiles */
 .crew-photo-container {
     position: relative;
-    width: 80px !important;
-    height: 80px !important;
+    width: 120px !important;
+    height: 120px !important;
     flex-shrink: 0;
 }
 
