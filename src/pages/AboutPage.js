@@ -54,14 +54,9 @@ export class AboutPage {
     render() {
         const t = this.text[this.currentLang];
         const nextLang = this.currentLang === 'en' ? 'ko' : 'en';
-        let btnContent = '';
-        const activeStyle = 'style="color: var(--color-danger); font-weight: bold;"';
 
-        if (this.currentLang === 'en') {
-            btnContent = `KOREAN / <span ${activeStyle}>ENGLISH</span>`;
-        } else {
-            btnContent = `<span ${activeStyle}>한국어</span> / 영어`;
-        }
+        const koLabel = this.currentLang === 'ko' ? '<span class="accent-text">Ko</span>' : 'Ko';
+        const enLabel = this.currentLang === 'en' ? '<span class="accent-text">En</span>' : 'En';
 
         // Note: Using 'team-page' class to reuse existing styles from team.css
         return `
@@ -69,15 +64,15 @@ export class AboutPage {
                 <div class="container">
                     <div class="lang-switch-container">
                         <button id="lang-toggle" class="btn-tech-sm" data-lang="${nextLang}">
-                            [ ${btnContent} ]
+                            [ ${koLabel} / ${enLabel} ]
                         </button>
                     </div>
 
-                    <header class="team-header">
+                    <div class="team-header">
                         <span class="hud-label">${t.label}</span>
                         <h1>${t.title}</h1>
                         <p class="subtitle">${t.subtitle}</p>
-                    </header>
+                    </div>
                     
                     <section class="vision-section">
                         <div class="vision-content">

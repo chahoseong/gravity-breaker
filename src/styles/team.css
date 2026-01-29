@@ -1,68 +1,62 @@
-/* Team Page Specific Styles - Vision & Values */
+﻿/* Team Page Specific Styles - Vision & Values */
 
 /* Team Page Variables */
-.team-page,
-.about-page {
+.team-page {
+    /* Merged: Kept existing variables and added new ones */
     --glass-bg: rgba(30, 35, 45, 0.7);
     --glass-border: 1px solid hsla(0, 0%, 100%, 0.1);
     --card-hover-glow: 0 0 15px var(--color-primary);
+
+    /* New variables from contact merge */
+    --neon-cyan: #00f3ff;
+    --neon-pink: #ff00ff;
+    --panel-bg: rgba(10, 20, 30, 0.4);
+    /* Increased transparency */
+    --hud-border: 1px solid rgba(0, 243, 255, 0.3);
 }
 
-.team-page,
-.about-page {
-    padding-top: var(--header-height);
-    min-height: 100vh;
-    background-image:
-        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        url('/src/assets/team-bg.jpg');
-    /* Placeholder */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: var(--color-text-primary);
-}
-
-.team-header {
-    text-align: center;
-    margin-bottom: 5rem;
-    padding-top: 3rem;
-}
-
+/* --- About Page & HUD Elements --- */
 .hud-label {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    color: var(--color-secondary);
+    font-family: var(--font-display);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
     margin-bottom: 1rem;
-    opacity: 0.8;
+    display: inline-block;
+    background: rgba(0, 10, 20, 0.5);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 10px rgba(0, 149, 255, 0.2);
 }
 
-/* Language Switch */
 .lang-switch-container {
     position: absolute;
-    top: calc(var(--header-height) + 1rem);
-    /* Just below header */
-    right: 2rem;
-    z-index: 10;
+    top: 0;
+    right: 1.5rem;
+    z-index: 20;
 }
 
 .btn-tech-sm {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid var(--color-primary);
+    background: rgba(16, 21, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--color-text-secondary);
     padding: 0.5rem 1rem;
-    font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
 .btn-tech-sm:hover {
-    background: rgba(33, 150, 243, 0.2);
-    box-shadow: 0 0 10px var(--color-primary);
+    border-color: var(--color-primary);
     color: white;
+    background: rgba(0, 149, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 149, 255, 0.2);
 }
 
 .accent-text {
@@ -70,19 +64,360 @@
     font-weight: bold;
 }
 
+.team-page {
+    position: relative;
+    /* Context for absolute children - MY FIX */
+    padding-top: var(--header-height);
+    min-height: 100vh;
+    /* Updated Background: Use Gemini image with overlay for opacity control */
+    background: radial-gradient(circle at center, rgba(16, 21, 30, 0.4) 0%, var(--color-bg-dark) 100%),
+        url('/제미나이생성.png') no-repeat center center/cover;
+    background-attachment: fixed;
+    color: var(--color-text-primary);
+}
 
-.team-page h1,
-.about-page h1 {
+/* Semi-transparent overlay to tone down the background image */
+.team-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(16, 21, 30, 0.6);
+    /* Adjust opacity here */
+    z-index: -1;
+    pointer-events: none;
+}
+
+.team-page .container {
+    position: relative;
+    /* Context for lang switch - MY FIX */
+}
+
+/* Merged styles for header overlap fix */
+.mission-header {
+    text-align: center;
+    margin: 0 auto 3rem;
+    /* Center and margin bottom */
+    padding: 3rem;
+    background: rgba(0, 243, 255, 0.05);
+    /* Slightly darker for contrast */
+    border: 1px solid rgba(0, 243, 255, 0.1);
+    box-shadow: inset 0 0 30px rgba(0, 243, 255, 0.05);
+    position: relative;
+    max-width: 1000px;
+    /* Force same width as crew-grid */
+    clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+}
+
+/* Styles for Mission Header (from contact branch) */
+.mission-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.mission-name {
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Trajectory Bar */
+.trajectory-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    /* Fill the container width */
+    max-width: 1000px;
+    margin: 2rem auto 0;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.planet-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 60px;
+}
+
+.planet-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
+}
+
+.progress-track {
+    flex-grow: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    border-radius: 2px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-cyan), #fff);
+    box-shadow: 0 0 15px var(--neon-cyan);
+    border-radius: 2px;
+}
+
+.rocket-icon {
+    position: absolute;
+    top: -12px;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.rocket-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px #fff);
+}
+
+/* Crew Grid */
+.crew-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    justify-content: center;
+    /* Center-align cards when few */
+    gap: 2rem;
+    margin: 0 auto 4rem;
+    max-width: 1000px;
+    /* Align with mission-header max-width */
+}
+
+/* Crew Card Styles */
+.crew-card {
+    background: var(--panel-bg);
+    border: var(--hud-border);
+    padding: 1.5rem;
+    position: relative;
+    /* Glassmorphism effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    clip-path: polygon(20px 0, 100% 0,
+            100% calc(100% - 20px), calc(100% - 20px) 100%,
+            0 100%, 0 20px);
+    transition: all 0.3s ease;
+}
+
+.crew-card:hover {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    border-color: var(--neon-cyan);
+}
+
+.card-corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    transition: all 0.3s ease;
+}
+
+.crew-card:hover .card-corner {
+    width: 20px;
+    height: 20px;
+}
+
+.tl {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.tr {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.bl {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.br {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+/* Crew Header */
+.crew-header-section {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
+}
+
+.crew-photo-container {
+    width: 100px;
+    height: 120px;
+    border: 1px solid var(--color-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.crew-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(50%) hue-rotate(180deg) contrast(1.2);
+    /* Sci-fi look */
+}
+
+.crew-identity {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.callsign {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: white;
+    letter-spacing: 2px;
+}
+
+.role {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Stats Section */
+.crew-stats-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.radar-container {
+    width: 140px;
+    height: 140px;
+}
+
+.stats-values {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    color: var(--neon-cyan);
+}
+
+/* Comms Table */
+.comms-protocol {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.comms-header {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+}
+
+.comms-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 2fr;
+    padding: 0.75rem;
+    align-items: center;
+}
+
+.table-header {
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+}
+
+.table-row {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s;
+}
+
+.table-row:hover {
+    background: rgba(0, 243, 255, 0.05);
+}
+
+.col-callsign {
+    font-weight: bold;
+    color: white;
+}
+
+.tech-link {
+    color: var(--color-link);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.tech-link:hover {
+    text-decoration: underline;
+    color: var(--neon-cyan);
+}
+
+/* --- Restored Vision & Values Styles --- */
+
+.team-page h1 {
     font-family: var(--font-display);
     font-size: 3.5rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-shadow: 0 0 20px rgba(0, 50, 255, 0.3);
+    line-height: 1.2;
+    word-break: keep-all;
 }
 
-.team-page p.subtitle,
-.about-page p.subtitle {
+.team-page p.subtitle {
     font-family: var(--font-body);
     font-size: 1.2rem;
     color: var(--color-text-secondary);
@@ -90,7 +425,6 @@
     margin: 0 auto;
 }
 
-/* Sections Common */
 .section-title {
     font-family: var(--font-display);
     font-size: 2rem;
@@ -129,15 +463,12 @@
     max-width: 600px;
 }
 
-/* Mission Grid */
-.mission-section {
-    margin-bottom: 6rem;
-}
-
+/* Mission Grid (About Page specific) */
 .mission-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 3rem;
+    margin-top: 2rem;
 }
 
 .mission-item {
@@ -202,6 +533,8 @@
 .icon-container {
     color: var(--color-primary);
     margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
 }
 
 .value-card h3 {

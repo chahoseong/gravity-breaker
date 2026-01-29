@@ -37,9 +37,10 @@ export class App {
 
         // Add Global Event Listener for Navigation
         document.addEventListener('click', (e) => {
-            if (e.target.matches('[data-link]')) {
+            const link = e.target.closest('[data-link]');
+            if (link) {
                 e.preventDefault();
-                this.router.navigate(e.target.getAttribute('href'));
+                this.router.navigate(link.getAttribute('href'));
             }
         });
 
