@@ -1,0 +1,17 @@
+{
+  "name": "gravity-breaker",
+  "version": "1.0.0",
+  "description": "**Gravity Breaker** is a web project showcasing the next generation of rocket engines for deep space exploration. This project demonstrates a modern website architecture using Vanilla HTML, CSS, and JavaScript with Single Page Application (SPA) routing capabilities.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "homepage": "https://chahoseong.github.io/gravity-breaker",
+  "scripts": {
+    "deploy": "gh-pages -d .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
