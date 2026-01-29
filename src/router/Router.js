@@ -1,3 +1,4 @@
+import { getBasePath } from '../utils/paths.js';
 
 export class Router {
     constructor(routes) {
@@ -10,7 +11,14 @@ export class Router {
     }
 
     handlePopState() {
-        const path = window.location.pathname;
+        const basePath = getBasePath();
+        let path = window.location.pathname;
+
+        // Remove base path if present to match against routes
+        if (basePath && path.startsWith(basePath)) {
+            path = path.replace(basePath, '') || '/';
+        }
+
         const pageClass = this.routes[path] || this.routes['/'];
 
         console.log(`Router: Matching path "${path}" ->`, pageClass ? pageClass.name : 'Defaulting to LandingPage');
