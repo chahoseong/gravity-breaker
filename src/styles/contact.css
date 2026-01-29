@@ -227,11 +227,11 @@
     border-bottom: 1px solid hsla(180, 100%, 50%, 0.2);
 }
 
-/* Crew Photo - Compact size (40px) - FORCED */
+/* Crew Photo - Recognizable size (80px) */
 .crew-photo-container {
     position: relative;
-    width: 40px !important;
-    height: 40px !important;
+    width: 80px !important;
+    height: 80px !important;
     flex-shrink: 0;
 }
 

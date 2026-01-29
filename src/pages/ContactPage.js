@@ -163,6 +163,21 @@ export class ContactPage {
                             <div class="role-label">ROLE:</div>
                             <div class="role">${member.role}</div>
                         </div>
+                        
+                        <!-- Communication Protocol -->
+                        <div class="comms-protocol-inline">
+                            <div class="comms-item">
+                                <div class="comms-label">SUBSPACE COMMS ID:</div>
+                                <div class="comms-value">${member.contact.commsId}</div>
+                            </div>
+                            <div class="comms-item">
+                                <div class="comms-label">TECH LOGS:</div>
+                                <a href="https://${member.contact.techLog}" target="_blank" class="comms-link">
+                                    ${member.contact.techLog}
+                                </a>
+                            </div>
+                        </div>
+                        
                         <div class="tech-stack">
                             ${member.techStack.map(tech => `
                                 <div class="tech-badge" title="${tech.name}">
