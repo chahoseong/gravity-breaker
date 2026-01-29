@@ -1,3 +1,4 @@
+import { resolvePath } from '../utils/paths.js';
 
 export class TeamPage {
     constructor() {
@@ -6,9 +7,8 @@ export class TeamPage {
 
     async loadData() {
         try {
-            // Use absolute path from root + cache busting
             const timestamp = new Date().getTime();
-            const response = await fetch(`src/data/team-data.json?v=${timestamp}`);
+            const response = await fetch(resolvePath(`/src/data/team-data.json?v=${timestamp}`));
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -170,7 +170,7 @@ export class TeamPage {
                 
                 <div class="crew-header-section">
                     <div class="crew-photo-container">
-                        <img src="assets/img/team/${member.photo}" alt="${member.realName}" class="crew-photo" onerror="this.src='assets/img/default-face.png';">
+                        <img src="${resolvePath(`/assets/img/team/${member.photo}`)}" alt="${member.realName}" class="crew-photo" onerror="this.src='${resolvePath('/assets/img/default-face.png')}';">
                         <div class="photo-glow"></div>
                     </div>
                     
