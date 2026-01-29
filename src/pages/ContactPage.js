@@ -1,284 +1,206 @@
+
 export class ContactPage {
     constructor() {
-        this.teamData = null;
-    }
-
-    async loadData() {
-        try {
-            // Use absolute path from root + cache busting
-            const timestamp = new Date().getTime();
-            const response = await fetch(`/src/data/team-data.json?v=${timestamp}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            this.teamData = await response.json();
-            console.log('Team data loaded successfully:', this.teamData);
-        } catch (error) {
-            console.error('Failed to load team data:', error);
-            this.teamData = { mission: {}, crew: [] };
-        }
-    }
-
-    async mount() {
-        await this.loadData();
-        // Re-render with loaded data
-        const mainContent = document.getElementById('main-content');
-        if (mainContent && this.teamData) {
-            mainContent.innerHTML = this.render();
-            // Use requestAnimationFrame for better timing
-            requestAnimationFrame(() => {
-                this.teamData.crew.forEach((member, index) => {
-                    this.drawRadarChart(`radar-${index}`, member.radarData);
-                });
-            });
-        }
-    }
-
-    drawRadarChart(canvasId, data) {
-        const canvas = document.getElementById(canvasId);
-        if (!canvas) return;
-
-        const ctx = canvas.getContext('2d');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const radius = 50;
-        const labels = ['집중', '항법', '공학', '통신', '생존'];
-        const values = [data.focus, data.navigation, data.engineering, data.communication, data.survival];
-        const numPoints = 5;
-
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw background grid (pentagon)
-        ctx.strokeStyle = 'hsla(180, 100%, 50%, 0.15)';
-        ctx.lineWidth = 1;
-        for (let i = 1; i <= 5; i++) {
-            ctx.beginPath();
-            const r = (radius / 5) * i;
-            for (let j = 0; j <= numPoints; j++) {
-                const angle = (Math.PI * 2 * j) / numPoints - Math.PI / 2;
-                const x = centerX + r * Math.cos(angle);
-                const y = centerY + r * Math.sin(angle);
-                if (j === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            }
-            ctx.closePath();
-            ctx.stroke();
-        }
-
-        // Draw axis lines
-        for (let i = 0; i < numPoints; i++) {
-            const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2;
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(centerX + radius * Math.cos(angle), centerY + radius * Math.sin(angle));
-            ctx.stroke();
-        }
-
-        // Draw data polygon
-        ctx.fillStyle = 'hsla(180, 100%, 50%, 0.2)';
-        ctx.strokeStyle = 'hsl(180, 100%, 50%)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        for (let i = 0; i <= numPoints; i++) {
-            const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2;
-            const value = values[i % numPoints] / 100;
-            const r = radius * value;
-            const x = centerX + r * Math.cos(angle);
-            const y = centerY + r * Math.sin(angle);
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        // Draw points
-        ctx.fillStyle = 'hsl(180, 100%, 50%)';
-        for (let i = 0; i < numPoints; i++) {
-            const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2;
-            const value = values[i] / 100;
-            const r = radius * value;
-            const x = centerX + r * Math.cos(angle);
-            const y = centerY + r * Math.sin(angle);
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    renderMissionHeader() {
-        if (!this.teamData || !this.teamData.mission) return '';
-
-        const { classification, id, title, trajectory } = this.teamData.mission;
-
-        return `
-            <div class="mission-header">
-                <div class="mission-title">
-                    <span class="classification">[${classification}]</span>
-                    <span class="mission-id">MISSION ${id}:</span>
-                    <span class="mission-name">${title}</span>
-                </div>
-                <div class="trajectory-bar">
-                    <div class="trajectory-start">
-                        <div class="planet-icon earth">🌍</div>
-                        <span>${trajectory.from}</span>
-                    </div>
-                    <div class="trajectory-progress">
-                        <div class="progress-track">
-                            <div class="progress-fill" style="width: ${trajectory.progress}%"></div>
-                            <div class="rocket-icon" style="left: ${trajectory.progress}%">🚀</div>
-                        </div>
-                        <span class="trajectory-label">MARS TRAJECTORY</span>
-                    </div>
-                    <div class="trajectory-end">
-                        <span>${trajectory.to}</span>
-                        <div class="planet-icon mars">🔴</div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    renderCrewCard(member, index) {
-        return `
-            <div class="crew-card">
-                <div class="card-corner tl"></div>
-                <div class="card-corner tr"></div>
-                <div class="card-corner bl"></div>
-                <div class="card-corner br"></div>
-                
-                <div class="crew-header-section">
-                    <div class="crew-photo-container">
-                        <img src="/src/assets/images/team/${member.photo}" alt="${member.realName}" class="crew-photo">
-                        <div class="photo-glow"></div>
-                    </div>
-                    
-                    <div class="crew-identity">
-                        <div class="callsign-section">
-                            <div class="callsign-label">CALLSIGN:</div>
-                            <div class="callsign">${member.callsign}</div>
-                        </div>
-                        <div class="role-section">
-                            <div class="role-label">ROLE:</div>
-                            <div class="role">${member.role}</div>
-                        </div>
-                        
-                        <!-- Communication Protocol -->
-                        <div class="comms-protocol-inline">
-                            <div class="comms-item">
-                                <div class="comms-label">SUBSPACE COMMS ID:</div>
-                                <div class="comms-value">${member.contact.commsId}</div>
-                            </div>
-                            <div class="comms-item">
-                                <div class="comms-label">TECH LOGS:</div>
-                                <a href="https://${member.contact.techLog}" target="_blank" class="comms-link">
-                                    ${member.contact.techLog}
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="tech-stack">
-                            ${member.techStack.map(tech => `
-                                <div class="tech-badge" title="${tech.name}">
-                                    <span class="tech-icon-small">${tech.icon}</span>
-                                    <span class="tech-name-small">${tech.name}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="crew-stats-section">
-                    <div class="stats-label">Stats</div>
-                    <div class="radar-container">
-                        <canvas id="radar-${index}" width="140" height="140"></canvas>
-                    </div>
-                    <div class="stats-values">
-                        <div class="stat-item">
-                            <span class="stat-label">Focus</span>
-                            <span class="stat-value">${member.radarData.focus}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Nav</span>
-                            <span class="stat-value">${member.radarData.navigation}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Eng</span>
-                            <span class="stat-value">${member.radarData.engineering}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Comm</span>
-                            <span class="stat-value">${member.radarData.communication}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Surv</span>
-                            <span class="stat-value">${member.radarData.survival}</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="crew-status-section">
-                    <div class="status-header">STATUS:</div>
-                    <div class="status-content">
-                        <span class="status-indicator ${member.status.availability.toLowerCase().replace(' ', '-')}"></span>
-                        <span class="status-text">${member.status.availability}</span>
-                    </div>
-                    <div class="status-location">(${member.status.location})</div>
-                </div>
-            </div>
-        `;
-    }
-
-    renderCommsTable() {
-        if (!this.teamData || !this.teamData.crew) return '';
-
-        return `
-            <div class="comms-protocol">
-                <div class="comms-header">통신 프로토콜</div>
-                <div class="comms-table">
-                    <div class="table-header">
-                        <div class="col-callsign">호출 부호</div>
-                        <div class="col-role">역할</div>
-                        <div class="col-comms">통신 ID</div>
-                        <div class="col-tech">기술 로그</div>
-                    </div>
-                    ${this.teamData.crew.map(member => `
-                        <div class="table-row">
-                            <div class="col-callsign">${member.callsign}</div>
-                            <div class="col-role">${member.role}</div>
-                            <div class="col-comms">${member.contact.commsId}</div>
-                            <div class="col-tech">
-                                <a href="https://${member.contact.techLog}" target="_blank" class="tech-link">
-                                    ${member.contact.techLog}
-                                </a>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
+        this.formEndpoint = ''; // Optional: Set URL for real submission
     }
 
     render() {
-        if (!this.teamData) {
-            return `
-                <div class="page contact-page">
-                    <div class="loading">크루 명단 로딩 중...</div>
-                </div>
-            `;
-        }
-
         return `
-            <div class="page contact-page">
-                ${this.renderMissionHeader()}
-                
-                <div class="crew-grid">
-                    ${this.teamData.crew.map((member, index) => this.renderCrewCard(member, index)).join('')}
+            <div class="page-container contact-page">
+                <div class="contact-grid">
+                    <!-- Left Column: Info Cards -->
+                    <div class="contact-info-column">
+                        <h1 class="page-title">COMMUNICATION_LINK</h1>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">📍</div>
+                            <div class="info-detail">
+                                <h3>Launch Site</h3>
+                                <p>Starbase Alpha, Sector 7</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">📧</div>
+                            <div class="info-detail">
+                                <h3>Frequency</h3>
+                                <p>contact@gravitybreaker.com</p>
+                                <span class="badge-24h">24h response</span>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">📞</div>
+                            <div class="info-detail">
+                                <h3>Direct Line</h3>
+                                <p>+1 (800) LIFT-OFF</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Section (Desktop Placement) -->
+                        <div class="faq-section">
+                            <h2 class="faq-title">FREQUENT_QUERIES</h2>
+                            <div class="accordion">
+                                <div class="accordion-item">
+                                    <button class="accordion-trigger">
+                                        <span>What allows for high-g maneuvering?</span>
+                                        <span class="icon">+</span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Our proprietary inertial dampening field reduces G-force impact on the crew by 94%.</p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-trigger">
+                                        <span>Are the thrusters ion-based?</span>
+                                        <span class="icon">+</span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>No, we use a hybrid fusion-plasma drive for maximum delta-v in atmosphere and vacuum.</p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-trigger">
+                                        <span>How do I book a test flight?</span>
+                                        <span class="icon">+</span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Fill out the inquiry form selecting "Test Flight" and our flight director will contact you.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Form -->
+                    <div class="contact-form-column">
+                        <div class="glass-form-container">
+                            <h2>TRANSMIT_MESSAGE</h2>
+                            <p class="form-desc">Secure channel open. Encryption active.</p>
+                            
+                            <form id="contactForm" class="contact-form">
+                                <!-- Honeypot -->
+                                <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+
+                                <div class="form-group">
+                                    <label for="name">CODENAME / NAME</label>
+                                    <input type="text" id="name" name="name" required placeholder="Enter ident">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">RETURN FREQUENCY (EMAIL)</label>
+                                    <input type="email" id="email" name="email" required placeholder="name@sector.com">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="type">INQUIRY TYPE</label>
+                                    <select id="type" name="type">
+                                        <option value="general">General Inquiry</option>
+                                        <option value="tech">Technical Support</option>
+                                        <option value="flight">Test Flight Booking</option>
+                                        <option value="investor">Investor Relations</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message">DATA PACKET</label>
+                                    <textarea id="message" name="message" rows="5" required placeholder="Type your message..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-submit">
+                                    INITIATE TRANSMISSION
+                                </button>
+                            </form>
+
+                            <div id="successMessage" class="success-message hidden">
+                                <div class="success-icon">✓</div>
+                                <h3>TRANSMISSION COMPLETE</h3>
+                                <p>We have received your packet. Stand by for response.</p>
+                                <button id="resetBtn" class="btn-text">Send another</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                ${this.renderCommsTable()}
             </div>
         `;
+    }
+
+    mount() {
+        // FAQ Accordion Logic
+        const triggers = document.querySelectorAll('.accordion-trigger');
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.parentElement;
+                const wasActive = item.classList.contains('active');
+
+                // Close others (optional, keeps it clean)
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+
+                // Toggle current
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Form Submission Logic
+        const form = document.getElementById('contactForm');
+        const successMsg = document.getElementById('successMessage');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Honeypot check
+                const honeypot = form.querySelector('[name="_gotcha"]');
+                if (honeypot && honeypot.value) {
+                    console.warn('Spam detected');
+                    return; // Silent fail
+                }
+
+                // Simulate API call
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'SENDING...';
+                submitBtn.disabled = true;
+
+                // Artificial delay for effect
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                if (this.formEndpoint) {
+                    // Real fetch if endpoint exists
+                    try {
+                        const data = new FormData(form);
+                        await fetch(this.formEndpoint, {
+                            method: 'POST',
+                            body: data,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Submission error', error);
+                        // Optional: Show error UI
+                    }
+                }
+
+                // Show Success UI
+                form.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+
+                // Reset button logic
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                form.reset();
+                successMsg.classList.add('hidden');
+                form.classList.remove('hidden');
+            });
+        }
     }
 }
