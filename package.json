@@ -8,7 +8,7 @@
   },
   "homepage": "https://chahoseong.github.io/gravity-breaker",
   "scripts": {
-    "deploy": "gh-pages -d .",
+    "deploy": "gh-pages -d . -b main",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
