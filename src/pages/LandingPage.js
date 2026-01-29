@@ -7,7 +7,7 @@ class HeroSection {
             <section class="hero-section">
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
-                    <img src="assets/img/logo.png" alt="Gravity Breaker Logo" class="hero-logo">
+                    <img src="/assets/img/logo.png" alt="Gravity Breaker Logo" class="hero-logo">
                     <h1 class="hero-title text-h1">Gravity Breaker</h1>
                     <p class="hero-subtitle">돌아갈 곳은 없다. 오직 별들을 향한 전진뿐.</p>
                     <div class="cta-group">

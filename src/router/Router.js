@@ -13,6 +13,8 @@ export class Router {
         const path = window.location.pathname;
         const pageClass = this.routes[path] || this.routes['/'];
 
+        console.log(`Router: Matching path "${path}" ->`, pageClass ? pageClass.name : 'Defaulting to LandingPage');
+
         if (pageClass) {
             this.loadPage(new pageClass());
         } else {
