@@ -23,6 +23,7 @@ export class Router {
     navigate(path) {
         window.history.pushState({}, '', path);
         this.handlePopState();
+        window.scrollTo(0, 0);
     }
 
     async loadPage(pageInstance) {
