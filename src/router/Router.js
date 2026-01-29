@@ -11,6 +11,13 @@ export class Router {
 
     handlePopState() {
         const path = window.location.pathname;
+
+        // Normalize /index.html to /
+        if (path === '/index.html') {
+            window.history.replaceState({}, '', '/');
+            return this.handlePopState(); // Re-run with normalized path
+        }
+
         const pageClass = this.routes[path] || this.routes['/'];
 
         console.log(`Router: Matching path "${path}" ->`, pageClass ? pageClass.name : 'Defaulting to LandingPage');
