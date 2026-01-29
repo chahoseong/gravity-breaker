@@ -15,7 +15,15 @@ export class TeamPage {
             this.teamData = await response.json();
         } catch (error) {
             console.error('Failed to load team data:', error);
-            this.teamData = { mission: {}, crew: [] };
+            this.teamData = {
+                mission: {
+                    id: 'N/A',
+                    title: 'Mission Data Unavailable',
+                    classification: 'N/A',
+                    trajectory: { from: 'N/A', to: 'N/A', progress: 0 }
+                },
+                crew: []
+            };
         }
     }
 
@@ -110,7 +118,17 @@ export class TeamPage {
     renderMissionHeader() {
         if (!this.teamData || !this.teamData.mission) return '';
 
-        const { classification, id, title, trajectory } = this.teamData.mission;
+        const {
+            classification = 'N/A',
+            id = 'N/A',
+            title = 'N/A',
+            trajectory = { from: 'N/A', to: 'N/A', progress: 0 }
+        } = this.teamData.mission;
+
+        // Use optional chaining and default values
+        const from = trajectory?.from || 'N/A';
+        const to = trajectory?.to || 'N/A';
+        const progress = trajectory?.progress || 0;
 
         return `
             <div class="mission-header">
@@ -122,12 +140,12 @@ export class TeamPage {
                 <div class="trajectory-bar">
                     <div class="trajectory-start planet-icon">
                         <span>🌍</span>
-                        <span>${trajectory.from}</span>
+                        <span>${from}</span>
                     </div>
                     <div class="trajectory-progress">
                         <div class="progress-track">
-                            <div class="progress-fill" style="width: ${trajectory.progress}%"></div>
-                            <div class="rocket-icon" style="left: ${trajectory.progress}%">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                            <div class="rocket-icon" style="left: ${progress}%">
                                 <span>🚀</span>
                             </div>
                         </div>
@@ -135,7 +153,7 @@ export class TeamPage {
                     </div>
                     <div class="trajectory-end planet-icon">
                         <span>🔴</span>
-                        <span>${trajectory.to}</span>
+                        <span>${to}</span>
                     </div>
                 </div>
             </div>
@@ -223,7 +241,12 @@ export class TeamPage {
                 <div class="crew-status-section">
                     <div class="status-header">STATUS:</div>
                     <div class="status-content">
-                        <span class="status-indicator ${member.status.availability.toLowerCase().replace(' ', '-')}"></span>
+                        ${(() => {
+                const statusMap = { '작전 중': 'operational', '대기 중': 'standby', '휴가 중': 'on-leave' };
+                const engClass = statusMap[member.status.availability] || '';
+                const korClass = member.status.availability.toLowerCase().replace(' ', '-');
+                return `<span class="status-indicator ${engClass} ${korClass}"></span>`;
+            })()}
                         <span class="status-text">${member.status.availability}</span>
                     </div>
                     <div class="status-location">(${member.status.location})</div>
