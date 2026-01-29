@@ -11,7 +11,7 @@
     text-align: center;
     overflow: hidden;
     background: radial-gradient(circle at center, rgba(16, 21, 30, 0.8) 0%, var(--color-bg-dark) 100%),
-        url('../../assets/hero-bg.jpg') no-repeat center center/cover;
+        url('/assets/hero-bg.jpg') no-repeat center center/cover;
 }
 
 /* Fallback/Overlay for Hero */

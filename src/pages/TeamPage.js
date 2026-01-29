@@ -120,20 +120,25 @@ export class TeamPage {
                     <span class="mission-name">${title}</span>
                 </div>
                 <div class="trajectory-bar">
-                    <div class="trajectory-start">
-                        <div class="planet-icon earth">🌍</div>
+                    <div class="trajectory-start planet-icon">
+                        <img src="/assets/img/earth.png" alt="Earth" class="planet-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none;">🌍</span>
                         <span>${trajectory.from}</span>
                     </div>
                     <div class="trajectory-progress">
                         <div class="progress-track">
                             <div class="progress-fill" style="width: ${trajectory.progress}%"></div>
-                            <div class="rocket-icon" style="left: ${trajectory.progress}%">🚀</div>
+                            <div class="rocket-icon" style="left: ${trajectory.progress}%">
+                                <img src="/assets/img/rocket.png" alt="Rocket" class="rocket-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <span style="display:none;">🚀</span>
+                            </div>
                         </div>
-                        <span class="trajectory-label">MARS TRAJECTORY</span>
+                        <div class="trajectory-label">MARS TRAJECTORY</div>
                     </div>
-                    <div class="trajectory-end">
+                    <div class="trajectory-end planet-icon">
+                        <img src="/assets/img/mars.png" alt="Mars" class="planet-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none;">🔴</span>
                         <span>${trajectory.to}</span>
-                        <div class="planet-icon mars">🔴</div>
                     </div>
                 </div>
             </div>
@@ -271,13 +276,15 @@ export class TeamPage {
 
         return `
             <div class="page team-page">
-                ${this.renderMissionHeader()}
-                
-                <div class="crew-grid">
-                    ${this.teamData.crew.map((member, index) => this.renderCrewCard(member, index)).join('')}
+                <div class="container">
+                    ${this.renderMissionHeader()}
+                    
+                    <div class="crew-grid">
+                        ${this.teamData.crew.map((member, index) => this.renderCrewCard(member, index)).join('')}
+                    </div>
+                    
+                    ${this.renderCommsTable()}
                 </div>
-                
-                ${this.renderCommsTable()}
             </div>
         `;
     }
