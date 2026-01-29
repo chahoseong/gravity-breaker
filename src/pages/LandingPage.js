@@ -1,3 +1,4 @@
+import { resolvePath } from '../utils/paths.js';
 import { engineSpecs, recentNews } from '../data/landingData.js';
 
 /* 1. Hero Section Component */
@@ -7,11 +8,11 @@ class HeroSection {
             <section class="hero-section">
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
-                    <img src="/assets/img/logo.png" alt="Gravity Breaker Logo" class="hero-logo">
+                    <img src="${resolvePath('/assets/img/logo.png')}" alt="Gravity Breaker Logo" class="hero-logo">
                     <h1 class="hero-title text-h1">Gravity Breaker</h1>
                     <p class="hero-subtitle">돌아갈 곳은 없다. 오직 별들을 향한 전진뿐.</p>
                     <div class="cta-group">
-                        <button class="btn btn-primary" onclick="window.location.href='/about'">미션 브리핑</button>
+                        <button class="btn btn-primary" onclick="window.location.href='${resolvePath('/about')}'">미션 브리핑</button>
                     </div>
                 </div>
             </section>
@@ -99,7 +100,7 @@ class CTASection {
                     <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--color-text-secondary);">
                         Join us in building the infrastructure for the next century of space exploration.
                     </p>
-                    <button class="btn btn-primary" onclick="window.location.href='/contact'">Contact Operations</button>
+                    <button class="btn btn-primary" onclick="window.location.href='${resolvePath('/contact')}'">Contact Operations</button>
                 </div>
             </section>
         `;

@@ -1,3 +1,4 @@
+import { resolvePath } from '../utils/paths.js';
 
 export class AboutPage {
     constructor() {
