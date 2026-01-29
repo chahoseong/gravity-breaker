@@ -241,7 +241,12 @@ export class TeamPage {
                 <div class="crew-status-section">
                     <div class="status-header">STATUS:</div>
                     <div class="status-content">
-                        <span class="status-indicator ${member.status.availability.toLowerCase().replace(' ', '-')}"></span>
+                        ${(() => {
+                const statusMap = { '작전 중': 'operational', '대기 중': 'standby', '휴가 중': 'on-leave' };
+                const engClass = statusMap[member.status.availability] || '';
+                const korClass = member.status.availability.toLowerCase().replace(' ', '-');
+                return `<span class="status-indicator ${engClass} ${korClass}"></span>`;
+            })()}
                         <span class="status-text">${member.status.availability}</span>
                     </div>
                     <div class="status-location">(${member.status.location})</div>
