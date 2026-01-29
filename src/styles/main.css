@@ -55,6 +55,6 @@ ul {
     list-style: none;
 }
 
-/* Import Component Styles */
-@import "./components.css?v=3.0";
-@import "./contact.css?v=3.0";
+/* Import Component Styles - Now loaded directly in HTML */
+/* @import "./components.css?v=3.0"; */
+/* @import "./contact.css?v=3.0"; */
