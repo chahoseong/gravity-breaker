@@ -14,6 +14,14 @@ export class Router {
         const basePath = getBasePath();
         let path = window.location.pathname;
 
+        // Normalize /index.html (handling potential base path)
+        const isIndexHtml = path === '/index.html' || (basePath && path === basePath + '/index.html');
+        if (isIndexHtml) {
+            const target = basePath || '/';
+            window.history.replaceState({}, '', target);
+            return this.handlePopState();
+        }
+
         // Remove base path if present to match against routes
         if (basePath && path.startsWith(basePath)) {
             path = path.replace(basePath, '') || '/';

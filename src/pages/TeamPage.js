@@ -8,11 +8,7 @@ export class TeamPage {
     async loadData() {
         try {
             const timestamp = new Date().getTime();
-<<<<<<< HEAD
-            const response = await fetch(`src/data/team-data.json?v=${timestamp}`);
-=======
             const response = await fetch(resolvePath(`/src/data/team-data.json?v=${timestamp}`));
->>>>>>> contact
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -174,11 +170,7 @@ export class TeamPage {
                 
                 <div class="crew-header-section">
                     <div class="crew-photo-container">
-<<<<<<< HEAD
-                        <img src="assets/img/team/${member.photo}" alt="${member.realName}" class="crew-photo" onerror="this.src='assets/img/default-face.png';">
-=======
                         <img src="${resolvePath(`/assets/img/team/${member.photo}`)}" alt="${member.realName}" class="crew-photo" onerror="this.src='${resolvePath('/assets/img/default-face.png')}';">
->>>>>>> contact
                         <div class="photo-glow"></div>
                     </div>
                     
